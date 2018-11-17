@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDb35fSBOaLGp6OHX30ibr4_DANdM9zr3Y",
+        authDomain: "oca-teamc-f150d.firebaseapp.com",
+        databaseURL: "https://oca-teamc-f150d.firebaseio.com",
+        projectId: "oca-teamc-f150d",
+        storageBucket: "oca-teamc-f150d.appspot.com",
+        messagingSenderId: "1050796756680"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+<header>
+  <div class="container">
+
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li><a href="#!">First Sidebar Link</a></li>
+      <li><a href="#!">Second Sidebar Link</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+  </header>
+  <main>
+    <div class="container">
+        <div id="messagesDiv" class="col s12"></div>
+
+  <div id="cardDamy" style="display: none">
+    <div class="card text-item">
+      <div class="card-body">
+       <div class="row">
+        <span class="textMain col s9"></span>
+        <div class="text-right col s3">
+            <button type="button" class="grey darken-3 btn btn-secondary delete-text" data-dismiss="modal">削除</button>
+            <button type="button" class="blue darken-2 btn-text btn btn-primary edit-text modal-trigger" href="#modal1">編集</button>
+        </div>
+      </div>
+      <span class="now"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+	  <input id="messageInput" type="text" class="validate">
+	  <label for="messageInput">テキストを入力</label>
+	</div>
+    </div>
+    <div class="modal-footer row">
+      <div class="switch col s3">
+    <label>
+      Off
+      <input type="checkbox">
+      <span class="lever"></span>
+      On
+    </label>
+  </div>
+  <div class="input-field col s2">
+  <select>
+    <option value="" disabled selected>選んでください</option>
+    <option value="1">選択肢1</option>
+    <option value="2">選択肢2</option>
+    <option value="3">選択肢3</option>
+  </select>
+  <label>ラベルの文字列</label>
+</div>
+      <button type="button" class="comment btn col s2">Add</button>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat col s2">Agree</a>
+    </div>
+  </div>
+  <div class="fixed-action-btn">
+  <a id="modal-btn" class="waves-effect waves-light btn-floating btn-large red">
+    <i class="large material-icons modal-trigger" href="#modal1">mode_edit</i>
+  </a>
+</div>
+</div>
+</main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="lib/materialize/js/materialize.min.js"></script>
+    <script src="lib/moment.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
