@@ -1,12 +1,12 @@
 $(function(){
     var messagesRef = firebase.database().ref('/tasks/');//モーダルを使う為の記述
-    var user        = firebase.database().ref('/users/');
+    var usersRef    = firebase.database().ref('/users/');
 
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
         console.log(user);
-
+      $('.dropdown-trigger').dropdown();
       $('.modal').modal();
       $('select').formSelect();
       $('.sidenav').sidenav();
