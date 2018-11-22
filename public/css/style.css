@@ -20,3 +20,20 @@ main, footer {
 .sidenav {
     width: 220px;
 }
+
+/********************
+  ツイートボタン
+ ********************/
+.fixed-tweet-btn {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 997;
+}
+.btn-tweet {
+  border-radius: 0 0 0 2px;
+}
+.btn-tweet i {
+  background: #fff;
+  color: #222;
+}
