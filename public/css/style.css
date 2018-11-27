@@ -20,3 +20,22 @@ main, footer {
 .sidenav {
     width: 220px;
 }
+
+/********************
+  TEAMC-9
+ ********************/
+.timeline-card {
+   margin-left: 70px;
+}
+.timeline-user-icon {
+  background-color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  height: 56px;
+  position: absolute;
+  top: 0;
+  left: -70px;
+  width: 56px;
+}
