@@ -32,12 +32,24 @@
           <li><a href="#!">First Sidebar Link</a></li>
           <li><a href="#!">Second Sidebar Link</a></li>
         </ul>
-        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a href="#" data-target="slide-out" class="side-nav sidenav-trigger"><i class="material-icons">menu</i></a>
       </div>
     </header>
     <main>
       <div class="container">
   <div id="messagesDiv" class="col s12"></div>
+  <!-- Dropdown Trigger -->
+  <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="#!">three</a></li>
+    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+  </ul>
     <div id="cardDamy" style="display: none">
       <div class="card text-item">
         <div class="card-body">
@@ -46,6 +58,7 @@
           <div class="text-right col s3">
               <button type="button" class="grey darken-3 btn btn-secondary delete-text" data-dismiss="modal">削除</button>
               <button type="button" class="blue darken-2 btn-text btn btn-primary edit-text modal-trigger" href="#modal1">編集</button>
+              <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Drop Me!</a>
           </div>
         </div>
         <span class="now"></span>

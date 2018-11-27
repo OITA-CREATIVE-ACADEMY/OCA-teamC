@@ -5,8 +5,11 @@ $(function(){
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
-        console.log(user);
-        $('.dropdown-trigger').dropdown();
+        console.log(user.providerData);
+        $('.dropdown-trigger').dropdown({
+          hover: true,
+          container: true,
+        });
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
