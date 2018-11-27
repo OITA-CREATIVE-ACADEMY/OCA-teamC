@@ -39,3 +39,15 @@ main, footer {
   left: -70px;
   width: 56px;
 }
+.timeline-title {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.timeline-user-name {
+  font-weight: bold;
+}
+.timeline-user-id {
+  font-weight: normal;
+  margin-left: 1rem;
+  opacity: .7;
+}
