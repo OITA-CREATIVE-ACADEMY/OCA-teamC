@@ -91,9 +91,8 @@ main, footer {
 ********************/
 .sidenav li:first-child > a {
    height: auto;
-}
-.side-user {
-   padding: 48px 0;
+   padding-bottom: 48px;
+   padding-top: 48px;
 }
 .side-user-icon {
   background-color: #fff;
