@@ -40,7 +40,7 @@ main, footer {
 
 /********************
   TEAMC-8
- ********************/
+********************/
 .fixed-tweet-btn {
   position: fixed;
   right: 0;
@@ -57,9 +57,9 @@ main, footer {
 
 /********************
   TEAMC-9
- ********************/
+********************/
 .timeline-card {
-   margin-left: 70px;
+  margin-left: 70px;
 }
 .timeline-user-icon {
   background-color: #fff;
@@ -84,4 +84,30 @@ main, footer {
   font-weight: normal;
   margin-left: 1rem;
   opacity: .7;
+}
+
+/********************
+  TEAMC-5
+********************/
+.sidenav li:first-child > a {
+   height: auto;
+}
+.side-user {
+   padding: 48px 0;
+}
+.side-user-icon {
+  background-color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+  height: 96px;
+  width: 96px;
+}
+.side-user-name {
+  font-weight: bold;
+  line-height: 1.5;
+  padding: 13.5px 0;
+  text-align: center;
 }
