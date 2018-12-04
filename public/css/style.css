@@ -1,3 +1,6 @@
+.textMain{
+  word-break: break-all;
+}
 .text-right{
   text-align: right;
 }

@@ -6,10 +6,11 @@ $(function(){
     if (user) {
         // User is signed in.
         console.log(user);
-        $('.dropdown-trigger').dropdown();
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
+        M.updateTextFields();
+        $('input#input_text, textarea#textarea2').characterCounter();
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
             $('.comment').click();
@@ -19,6 +20,13 @@ $(function(){
         $('#modal-btn').click(function(){
           $('.comment').show();
           $('.edit-btn').hide();
+          $('#modalMain').show();
+          $('#btn-list').hide();
+        });
+
+        $('#modal-switch').click(function(){
+          $('#modalMain').hide();
+          $('#btn-list').show();
         });
 
         $('.comment').click(function(){//テキストと時間の取得
@@ -33,6 +41,8 @@ $(function(){
           const itemKey = $(this).data('key');
           $('.edit-btn').show();
           $('.comment').hide();
+          $('#modalMain').show();
+          $('#btn-list').hide();
           $('.edit-btn').click(function(){
             var text = $('#messageInput').val();
             var time = moment().format('YYYY-MM-DD HH:mm');
