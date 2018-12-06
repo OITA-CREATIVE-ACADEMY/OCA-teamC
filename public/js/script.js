@@ -51,8 +51,9 @@ $(function(){
           var message = snapshot.val();
           var messageKey = snapshot.key;
           var formatDate = message.time;
+          var displayName = user.displayName;
           if (message.text) {
-            var taskcopy = createcard(message,messageKey,formatDate);
+            var taskcopy = createcard(message,messageKey,formatDate,displayName);
             taskcopy.appendTo($('#messagesDiv'));
             $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
           }
@@ -108,9 +109,10 @@ function writeNewPost(text,itemKey,time) {
   return messagesRef.update(updates);
 }
 
-function createcard(message,messageKey,formatDate) {//カードを作成
+function createcard(message,messageKey,formatDate,displayName) {//カードを作成
   console.log(formatDate);
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
+  cloneTask.find('.timeline-user-name').text(displayName);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.delete-text').attr('data-key',messageKey);
   cloneTask.find('.edit-text').attr('data-key',messageKey);
