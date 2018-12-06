@@ -58,19 +58,30 @@ $(function(){
            // $(this).parents('.text-item').remove();
         });
         /*表示*/
-        messagesRef.on('value', function (snapshot) { //イベントハンドラ、dataabaseに接続している
-          $('#messagesDiv').empty();
-          snapshot.forEach(function(childSnapshot) {
-          var messageKey = childSnapshot.key;
-          var message = childSnapshot.val();
-          var formatDate = message.time;
-          var displayName = user.displayName;
-          if (message) {
-            var taskcopy = createcard(message,messageKey,formatDate,displayName);
-            taskcopy.appendTo($('#messagesDiv'));
+        messagesRef.on('child_added', function (snapshot) {//メッセージを追加する時に自動発火
+            var message = snapshot.val();
+            var messageKey = snapshot.key;
+            var formatDate = message.time;
+            var displayName = user.displayName;
+            if (message.text) {
+              var taskcopy = createcard(message,messageKey,formatDate,displayName);
+              taskcopy.appendTo($('#messagesDiv'));
           }
-          });
         });
+
+        // messagesRef.on('value', function (snapshot) { //イベントハンドラ、dataabaseに接続している
+        //   $('#messagesDiv').empty();
+        //   snapshot.forEach(function(childSnapshot) {
+        //   var messageKey = childSnapshot.key;
+        //   var message = childSnapshot.val();
+        //   var formatDate = message.time;
+        //   var displayName = user.displayName;
+        //   if (message) {
+        //     var taskcopy = createcard(message,messageKey,formatDate,displayName);
+        //     taskcopy.appendTo($('#messagesDiv'));
+        //   }
+        //   });
+        // });
       }else{
         // No user is signed in.
 
