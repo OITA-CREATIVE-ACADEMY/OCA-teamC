@@ -44,21 +44,22 @@ $(function(){
         $('.delete-text').click(function(){//カードの削除
             const itemKey = $(this).data('key');
             messagesRef.child(itemKey).remove();
-            $(this).parents('.text-item').remove();
+           // $(this).parents('.text-item').remove();
         });
-
-        messagesRef.on('child_added', function (snapshot) {//メッセージを追加する時に自動発火
-          var message = snapshot.val();
-          var messageKey = snapshot.key;
-          var formatDate = message.time;
-          var displayName = user.displayName;
-          if (message.text) {
-            var taskcopy = createcard(message,messageKey,formatDate,displayName);
+        /*表示*/
+        messagesRef.on('value', function (snapshot) { //イベントハンドラ、dataabaseに接続している
+          $('#messagesDiv').empty();
+          snapshot.forEach(function(childSnapshot) {
+          var messageKey = childSnapshot.key;
+          var message = childSnapshot.val();
+          var formatDate = childSnapshot.time;
+          if (message) {
+            var taskcopy = createcard(message,messageKey,formatDate);
             taskcopy.appendTo($('#messagesDiv'));
-            $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
           }
+          });
         });
-      } else {
+      }else{
         // No user is signed in.
 
 
@@ -109,13 +110,15 @@ function writeNewPost(text,itemKey,time) {
   return messagesRef.update(updates);
 }
 
-function createcard(message,messageKey,formatDate,displayName) {//カードを作成
+function createcard(message,messageKey,formatDate) {//カードを作成
   console.log(formatDate);
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
-  cloneTask.find('.timeline-user-name').text(displayName);
+  cloneTask.attr('data-key',messageKey);
+  console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.delete-text').attr('data-key',messageKey);
   cloneTask.find('.edit-text').attr('data-key',messageKey);
   cloneTask.find('.now').text(formatDate);
+
   return cloneTask;
 }
