@@ -49,9 +49,7 @@ $(function(){
         /*表示*/
         messagesRef.on('value', function (snapshot) { //イベントハンドラ、dataabaseに接続している
           $('#messagesDiv').empty();
-          console.log("udoiteru");
           snapshot.forEach(function(childSnapshot) {
-            console.log("udoiteru333");
           var messageKey = childSnapshot.key;
           var message = childSnapshot.val();
           var formatDate = childSnapshot.time;
