@@ -43,26 +43,7 @@
     </header>
     <main>
       <div class="container">
-  <div id="messagesDiv" class="col s12">
-
-    <div class="row">
-          <form class="col s12">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="input_text" type="text" data-length="10">
-                <label for="input_text">Input text</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
-                <label for="textarea2">Textarea</label>
-              </div>
-            </div>
-          </form>
-        </div>
-
-  </div>
+  <div id="messagesDiv" class="col s12"></div>
     <div id="cardDamy" style="display: none">
       <div class="card timeline-card text-item">
         <div class="timeline-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
@@ -78,13 +59,13 @@
             </div>
           </div>
           <div class="row original-btn">
-             <span class="now col s12 l3"></span>
-             <div class="right-align col s12 l9">
+             <div class="right-align col s12 l9 offset-l3">
                <button class="original-btn1 waves-effect waves-light btn-small">ああああああ</button>
                <button class="original-btn2 waves-effect waves-light btn-small">ああああああ</button>
                <button class="original-btn3 waves-effect waves-light btn-small">どうでもいいね</button>
              </div>
           </div>
+          <span class="now"></span>
         </div>
       </div>
     </div>
@@ -94,7 +75,7 @@
       <div id="modalMain">
         <div class="modal-content">
             <div class="input-field">
-              <input id="messageInput" type="text" class="validate">
+              <input id="messageInput" type="text" class="validate" data-length="250">
           	  <label for="messageInput">テキストを入力</label>
             </div>
           </div>
@@ -111,19 +92,19 @@
               <a id="modal-switch" class="waves-effect waves-light btn">ボタンを設定できます</a>
             </div>
             <button type="button" class="comment btn col s2">Add</button>
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat col s2">Agree</a>
+            <a href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">Agree</a>
           </div>
       </div>
       <div class="row">
-        <div id="btn-list">
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
-          <a class="col s3 waves-effect waves-light btn">button</a>
+        <div class="card" id="btn-list">
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
+          <button class="col s3 waves-effect waves-light btn">button</button>
         </div>
       </div>
   </div>

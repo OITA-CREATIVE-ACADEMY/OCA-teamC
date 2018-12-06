@@ -9,8 +9,7 @@ $(function(){
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
-        M.updateTextFields();
-        $('input#input_text, textarea#textarea2').characterCounter();
+        $('input#messageInput').characterCounter();
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
             $('.comment').click();
@@ -31,10 +30,12 @@ $(function(){
 
         $('.comment').click(function(){//テキストと時間の取得
             var text = $('#messageInput').val();
-            var time = moment().format('YYYY-MM-DD HH:mm');
-            var uid  = user.uid;
-            messagesRef.push({text:text,time:time,uid:uid});
-            $('#messageInput').val('');
+            if (text.length <= 250) {
+              var time = moment().format('YYYY-MM-DD HH:mm');
+              var uid  = user.uid;
+              messagesRef.push({text:text,time:time,uid:uid});
+              $('#messageInput').val('');
+            }
         });
 
         $('.edit-text').on('click',function() {
