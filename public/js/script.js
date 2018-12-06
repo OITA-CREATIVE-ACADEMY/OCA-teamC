@@ -68,20 +68,6 @@ $(function(){
               taskcopy.appendTo($('#messagesDiv'));
           }
         });
-
-        // messagesRef.on('value', function (snapshot) { //イベントハンドラ、dataabaseに接続している
-        //   $('#messagesDiv').empty();
-        //   snapshot.forEach(function(childSnapshot) {
-        //   var messageKey = childSnapshot.key;
-        //   var message = childSnapshot.val();
-        //   var formatDate = message.time;
-        //   var displayName = user.displayName;
-        //   if (message) {
-        //     var taskcopy = createcard(message,messageKey,formatDate,displayName);
-        //     taskcopy.appendTo($('#messagesDiv'));
-        //   }
-        //   });
-        // });
       }else{
         // No user is signed in.
 
