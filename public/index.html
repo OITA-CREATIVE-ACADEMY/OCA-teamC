@@ -59,47 +59,68 @@
             </div>
           </div>
           <div class="row original-btn">
-             <span class="now col s12 l6"></span>
-             <div class="col s12 l6">
+             <div class="right-align col s12 l9 offset-l3">
                <button class="original-btn1 waves-effect waves-light btn-small">ああああああ</button>
                <button class="original-btn2 waves-effect waves-light btn-small">ああああああ</button>
                <button class="original-btn3 waves-effect waves-light btn-small">どうでもいいね</button>
              </div>
           </div>
+          <span class="now"></span>
         </div>
       </div>
     </div>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
-      <div class="modal-content">
-        <div class="input-field">
-          <input id="messageInput" type="text" class="validate">
-      	  <label for="messageInput">テキストを入力</label>
-        </div>
-      </div>
-      <div class="modal-footer row">
-        <div class="switch col s3">
-          <label>
-            Off
-              <input type="checkbox">
-              <span class="lever"></span>
-          On
-          </label>
-        </div>
-          <div class="input-field col s2">
-            <select>
-              <option value="" disabled selected>選んでください</option>
-              <option value="1">選択肢1</option>
-              <option value="2">選択肢2</option>
-              <option value="3">選択肢3</option>
-            </select>
-              <label>ラベルの文字列</label>
+      <div id="modalMain">
+        <div class="modal-content">
+            <div class="input-field">
+              <input id="messageInput" type="text" class="validate" data-length="250">
+          	  <label for="messageInput">テキストを入力</label>
+            </div>
           </div>
-        <button type="button" class="comment btn col s2">Add</button>
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat col s2">Agree</a>
+          <div class="modal-footer row">
+            <div class="switch col s3">
+              <label>
+                Off
+                <input type="checkbox">
+                <span class="lever"></span>
+                On
+              </label>
+            </div>
+            <div class="col s4">
+              <a id="modal-switch" class="waves-effect waves-light btn">ボタンを設定できます</a>
+            </div>
+            <button type="button" class="comment btn col s2">Add</button>
+            <a href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">Agree</a>
+          </div>
       </div>
-    </div>
+      <div class="row">
+        <div class id="btn-list">
+          <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Textarea</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                  <button class="col s3 waves-effect waves-light btn">button</button>
+                </div>
+              </form>
+          </div>
+
+        </div>
+      </div>
+  </div>
     <div class="fixed-tweet-btn">
       <a id="modal-btn" class="btn-tweet waves-effect waves-light btn-floating btn-large">
         <i class="large material-icons modal-trigger" href="#modal1">mode_edit</i>

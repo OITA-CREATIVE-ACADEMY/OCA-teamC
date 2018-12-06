@@ -1,3 +1,6 @@
+.textMain{
+  word-break: break-all;
+}
 .text-right{
   text-align: right;
 }
@@ -27,7 +30,9 @@ main, footer {
 .sidenav {
     width: 220px;
 }
-
+.original-btn{
+  margin-bottom: 0;
+}
 .original-btn1{
   padding: 0 10px;
 }

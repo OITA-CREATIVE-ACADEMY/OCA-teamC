@@ -6,10 +6,10 @@ $(function(){
     if (user) {
         // User is signed in.
         console.log(user);
-        $('.dropdown-trigger').dropdown();
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
+        $('input#messageInput').characterCounter();
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
             $('.comment').click();
@@ -19,20 +19,31 @@ $(function(){
         $('#modal-btn').click(function(){
           $('.comment').show();
           $('.edit-btn').hide();
+          $('#modalMain').show();
+          $('#btn-list').hide();
+        });
+
+        $('#modal-switch').click(function(){
+          $('#modalMain').hide();
+          $('#btn-list').show();
         });
 
         $('.comment').click(function(){//テキストと時間の取得
             var text = $('#messageInput').val();
-            var time = moment().format('YYYY-MM-DD HH:mm');
-            var uid  = user.uid;
-            messagesRef.push({text:text,time:time,uid:uid});
-            $('#messageInput').val('');
+            if (text.length <= 250) {
+              var time = moment().format('YYYY-MM-DD HH:mm');
+              var uid  = user.uid;
+              messagesRef.push({text:text,time:time,uid:uid});
+              $('#messageInput').val('');
+            }
         });
 
         $('.edit-text').on('click',function() {
           const itemKey = $(this).data('key');
           $('.edit-btn').show();
           $('.comment').hide();
+          $('#modalMain').show();
+          $('#btn-list').hide();
           $('.edit-btn').click(function(){
             var text = $('#messageInput').val();
             var time = moment().format('YYYY-MM-DD HH:mm');
