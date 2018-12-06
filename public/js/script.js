@@ -63,7 +63,7 @@ $(function(){
           snapshot.forEach(function(childSnapshot) {
           var messageKey = childSnapshot.key;
           var message = childSnapshot.val();
-          var formatDate = childSnapshot.time;
+          var formatDate = message.time;
           var displayName = user.displayName;
           if (message) {
             var taskcopy = createcard(message,messageKey,formatDate,displayName);
