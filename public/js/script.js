@@ -6,7 +6,7 @@ $(function(){
     if (user) {
         // User is signed in.
         console.log(user);
-        $('.dropdown-trigger').dropdown();
+        // $('.dropdown-trigger').dropdown();
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
@@ -117,3 +117,11 @@ function createcard(message,messageKey,formatDate) {//カードを作成
   cloneTask.find('.now').text(formatDate);
   return cloneTask;
 }
+// dropdown
+$(function(){
+  $('#menu li').hover(function(){
+      $("ul:not(:animated)", this).slideDown();
+  }, function(){
+      $("ul.child",this).slideUp();
+  });
+});

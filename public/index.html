@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
     <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
@@ -36,6 +38,17 @@
       </div>
     </header>
     <main>
+        <ul id="normal" class="dropmenu">
+            <li><a href="#"><i class="material-icons">add</i></a>
+              
+              <ul>
+                <li><a href="#">submenu</a></li>
+                <li><a href="#">submenu</a></li>
+                <li><a href="#">submenu</a></li>
+                <li><a href="#">submenu</a></li>
+              </ul>
+            </li>
+            </ul>
       <div class="container">
   <div id="messagesDiv" class="col s12"></div>
     <div id="cardDamy" style="display: none">
@@ -102,9 +115,23 @@
   </div>
 </main>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<!-- <ul id="menu">
+    <li>ニュース
+    <ul id='dropdown1' class='dropdown-content child'></ul>
+        <li class="dropitem"><a href="#">プレスリリース</a></li>
+        <li class="dropitem"><a href="#">お知らせ</a></li>
+    </ul>
+</li>
+
+</ul> -->
+
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="lib/materialize/js/materialize.min.js"></script>
     <script src="lib/moment.min.js"></script>
     <script src="js/script.js"></script>
+  
   </body>
 </html>
