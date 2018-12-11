@@ -32,13 +32,15 @@ $(function(){
           $('#btn-list').show();
         });
 
-        $('.comment').click(function(){//テキストと時間の取得
+        $('.comment').click(function(){//テキストと時間の取得とfirebaseへの追加
             var text = $('#messageInput').val();
             if (text.length <= 250) {
               var time = moment().format('YYYY-MM-DD HH:mm');
               var uid  = user.uid;
-              messagesRef.push({text:text,time:time,uid:uid});
-              $('#messageInput').val('');
+                if (text) {
+                  messagesRef.push({text:text,time:time,uid:uid});
+                  $('#messageInput').val('');
+              }
             }
         });
 
@@ -61,21 +63,22 @@ $(function(){
           var card = $(this).parents(".timeline-card");
 
             const itemKey = $(card).data('key');
+            console.log(messagesRef.child(itemKey));
             messagesRef.child(itemKey).remove();
         });
         /*表示*/
-        messagesRef.on('child_added', function (snapshot) {//メッセージを追加する時に自動発火
+        messagesRef.on('child_added', function (snapshot) {//メッセージをカードにする時に自動発火
             var message = snapshot.val();
             var messageKey = snapshot.key;
             var formatDate = message.time;
             var displayName = user.displayName;
-            if (message.text) {
-              var taskcopy = createcard(message,messageKey,formatDate,displayName);
-              taskcopy.appendTo($('#messagesDiv'));
-          }
+            // if (message.text) {
+            var taskcopy = createcard(message,messageKey,formatDate,displayName);
+            taskcopy.appendTo($('#messagesDiv'));
+          // }
         });
 
-        messagesRef.on('child_removed', function (snapshot) {//メッセージを追加する時に自動発火
+        messagesRef.on('child_removed', function (snapshot) {//メッセージを削除する時に自動発火
           var value = snapshot.val();
           // key取得
           var key = snapshot.key;
