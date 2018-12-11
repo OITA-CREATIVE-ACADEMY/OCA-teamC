@@ -21,6 +21,10 @@ $(function(){
           $('.edit-btn').hide();
           $('#modalMain').show();
           $('#btn-list').hide();
+
+          // console.log($('#modalMain')[0]);
+          // console.log(document.getElementById('modalMain'));
+
         });
 
         $('#modal-switch').click(function(){
@@ -53,9 +57,11 @@ $(function(){
         });
 
         $('.delete-text').click(function(){//カードの削除
-            const itemKey = $(this).data('key');
+
+          var card = $(this).parents(".timeline-card");
+
+            const itemKey = $(card).data('key');
             messagesRef.child(itemKey).remove();
-           // $(this).parents('.text-item').remove();
         });
         /*表示*/
         messagesRef.on('child_added', function (snapshot) {//メッセージを追加する時に自動発火
@@ -68,6 +74,17 @@ $(function(){
               taskcopy.appendTo($('#messagesDiv'));
           }
         });
+
+        messagesRef.on('child_removed', function (snapshot) {//メッセージを追加する時に自動発火
+          var value = snapshot.val();
+          // key取得
+          var key = snapshot.key;
+          // keyをもとにDOM検索
+          var item = $(`[data-key=${key}]`)[0];
+          console.log(item);
+          item.remove();
+      });
+
       }else{
         // No user is signed in.
 
@@ -126,8 +143,8 @@ function createcard(message,messageKey,formatDate,displayName) {//カードを�
   console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-name').text(displayName);
-  cloneTask.find('.delete-text').attr('data-key',messageKey);
-  cloneTask.find('.edit-text').attr('data-key',messageKey);
+  // cloneTask.find('.delete-text').attr('data-key',messageKey);
+  // cloneTask.find('.edit-text').attr('data-key',messageKey);
   cloneTask.find('.now').text(formatDate);
 
   return cloneTask;
