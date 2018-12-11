@@ -38,7 +38,7 @@
           <li><a href="#!">First Sidebar Link</a></li>
           <li><a href="#!">Second Sidebar Link</a></li>
         </ul>
-        <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only"><i class="material-icons">menu</i></a>
+        <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-btn"><i class="material-icons">menu</i></a>
       </div>
     </header>
     <main>
@@ -66,7 +66,6 @@
              </div>
           </div>
           <span class="now"></span>
-          <button class="right">返信</button>
         </div>
       </div>
     </div>
@@ -80,26 +79,20 @@
           	  <label for="messageInput">テキストを入力</label>
             </div>
           </div>
-          <div class="valign-wrapper modal-footer row">
-            <form class="col s2" action="#">
-              <label>
-                <input type="checkbox" />
-                <span>返信</span>
-              </label>
-            </form>
-            <!-- <div class="switch col s3">
+          <div class="modal-footer row">
+            <div class="switch col s3">
               <label>
                 Off
                 <input type="checkbox">
                 <span class="lever"></span>
                 On
               </label>
-            </div> -->
-            <div class="col m4 s10">
+            </div>
+            <div class="col s4">
               <a id="modal-switch" class="waves-effect waves-light btn">ボタンを設定できます</a>
             </div>
-            <button type="button" class="right comment btn col m2">Add</button>
-            <button href="#!" class="right btn modal-close waves-effect waves-green col m2">Agree</button>
+            <button type="button" class="comment btn col s2">Add</button>
+            <a href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">Agree</a>
           </div>
       </div>
       <div class="row">

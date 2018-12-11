@@ -20,14 +20,20 @@ main, footer {
     padding-left: 0;
   }
 }
+
+@media only screen and (min-width : 992px) {
+  .sidenav-btn {
+    display: none;
+  }
+}
+
 .sidenav {
     width: 220px;
 }
 .original-btn{
   margin-bottom: 0;
-  padding: 0 10px;
 }
-/* .original-btn1{
+.original-btn1{
   padding: 0 10px;
 }
 .original-btn2{
@@ -35,7 +41,7 @@ main, footer {
 }
 .original-btn3{
   padding: 0 10px;
-} */
+}
 
 /********************
   TEAMC-8
