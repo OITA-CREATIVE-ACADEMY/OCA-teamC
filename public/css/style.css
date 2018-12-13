@@ -21,8 +21,12 @@ main, footer {
   }
 }
 
+#btn-list{
+  padding-top: 30px;
+}
+
 .sidenav {
-    width: 220px;
+  width: 220px;
 }
 .original-btn{
   margin-bottom: 0;
