@@ -1,0 +1,23 @@
+li ul {
+  position: absolute;
+  z-index: 10;
+}
+
+li ul li{
+  background-color: wheat;
+  border-bottom: 1px solid #000;
+  border-left:  1px solid #000;
+  border-right:  1px solid #000;
+  width: 65px;
+
+}
+li ul li:first-of-type{
+  border-top: 1px solid #000;
+}
+
+#normal li ul{
+  display: none;
+}
+#normal li:hover ul{
+  display: block;
+}
