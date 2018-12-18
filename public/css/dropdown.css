@@ -1,6 +1,9 @@
 li ul {
   position: absolute;
   z-index: 10;
+  right:10px;
+  
+
 }
 
 li ul li{
@@ -9,10 +12,17 @@ li ul li{
   border-left:  1px solid #000;
   border-right:  1px solid #000;
   width: 65px;
-
+  border-radius: 2px;
+  text-align: center;
+  
+}
+ul li ul li a{
+  color: #fff;
+  text-align: right
 }
 li ul li:first-of-type{
   border-top: 1px solid #000;
+  border-radius: 2px;
 }
 
 #normal li ul{
@@ -26,8 +36,7 @@ li ul li:first-of-type{
 li ul li{
   
   color: #232323;
-  background: #fff8e8;
-  border-left: solid 10px #ffc06e;
+  background: #039be5;
 
 }
 .ddmenu{
