@@ -152,3 +152,12 @@ function createcard(message,messageKey,formatDate,displayName) {//カードを�
 
   return cloneTask;
 }
+
+function signOut() {
+  firebase.auth().signOut().then(function() {
+    document.getElementById('log').innerText = 'サインアウト成功';
+  }).catch(function(error) {
+    console.log(error);
+    document.getElementById('log').innerText = 'サインアウト失敗';
+  });
+}
