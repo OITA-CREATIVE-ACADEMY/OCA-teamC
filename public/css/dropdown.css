@@ -13,12 +13,12 @@ li ul li{
   border-right:  1px solid #000;
   width: 65px;
   border-radius: 2px;
-  text-align: center;
   
 }
-ul li ul li a{
+ul li ul a li{
   color: #fff;
-  text-align: right
+  text-align: right;
+  text-align: center;
 }
 li ul li:first-of-type{
   border-top: 1px solid #000;
