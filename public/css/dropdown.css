@@ -21,3 +21,17 @@ li ul li:first-of-type{
 #normal li:hover ul{
   display: block;
 }
+
+/* dropdown2 */
+li ul li{
+  
+  color: #232323;
+  background: #fff8e8;
+  border-left: solid 10px #ffc06e;
+
+}
+.ddmenu{
+  width: 25px;
+  height: 25px;
+}
+
