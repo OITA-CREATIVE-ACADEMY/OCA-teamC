@@ -1,10 +1,13 @@
 $(function(){
   var messagesRef = firebase.database().ref('/tasks/');//モーダルを使う為の記述
-  var usersRef    = firebase.database().ref('/users/');
+  // var usersRef    = firebase.database().ref('/users/');
 
   firebase.auth().onAuthStateChanged(function(user) {
+    console.log('ログイン状態チェック');
     if (user) {
-        // User is signed in.
+      var userName = user.displayName;
+      var uid = user.uid;
+      writeUserData(uid,userName);
         console.log(user);
         $('.modal').modal();
         $('select').formSelect();
@@ -68,14 +71,16 @@ $(function(){
             var message = snapshot.val();
             var messageKey = snapshot.key;
             var formatDate = message.time;
-            var displayName = user.displayName;
-            if (message.text) {
-              var taskcopy = createcard(message,messageKey,formatDate,displayName);
-              taskcopy.appendTo($('#messagesDiv'));
-          }
+            const uid = message.uid;
+            firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){//uidに変更がある時一度だけ変更を加える
+              var displayName = snapshot.val().username;
+              if (message.text) {
+                var taskcopy = createcard(message,messageKey,formatDate,displayName);
+                taskcopy.appendTo($('#messagesDiv'));
+              }
+            });
         });
-
-        messagesRef.on('child_removed', function (snapshot) {//メッセージを追加する時に自動発火
+        messagesRef.on('child_removed', function (snapshot) {//メッセージを削除する時に自動発火
           var value = snapshot.val();
           // key取得
           var key = snapshot.key;
@@ -84,8 +89,9 @@ $(function(){
           console.log(item);
           item.remove();
       });
-
       }else{
+        console.log('ログインしていない');
+
         // No user is signed in.
 
 
@@ -96,6 +102,7 @@ $(function(){
         var uiConfig = {
           callbacks: {
             signInSuccess: function(currentUser, credential, redirectUrl) {
+
               // サインイン成功時のコールバック関数
               // 戻り値で自動的にリダイレクトするかどうかを指定
               return true;
@@ -122,6 +129,15 @@ $(function(){
       }
     });
 });
+
+//ユーザの名前をusersに保存する
+function writeUserData(userId, name,) {
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    //email: email,
+    //profile_picture : imageUrl
+  });
+}
 
 function writeNewPost(text,itemKey,time) {
   // A post entry.
