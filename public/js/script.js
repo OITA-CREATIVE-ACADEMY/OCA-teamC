@@ -161,3 +161,18 @@ function signOut() {
     document.getElementById('log').innerText = 'サインアウト失敗';
   });
 }
+
+var click = 0;
+var like = 0;
+var flag = true;
+function counter(){
+  if(flag == true){
+    like++;
+    $(".count").text(like);
+    flag = !flag;
+  }else{
+    like--;
+    $(".count").text(like);
+    flag = !flag;
+  }
+}

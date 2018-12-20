@@ -29,15 +29,17 @@
       <div class="container">
 
         <ul id="slide-out" class="sidenav sidenav-fixed">
-          <li>
-            <a href="#!">
-              <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
-              <div class="side-user-name">ユーザーネーム</div>
-            </a>
-          </li>
-          <li><a href="#!">First Sidebar Link</a></li>
-          <li><a href="#!">Second Sidebar Link</a></li>
-          <li id="signout"><a href="#!">ログアウト</a></li>
+          <div class="wrapper">
+            <li>
+              <a href="#!">
+                <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
+                <div class="side-user-name">ユーザーネーム</div>
+              </a>
+            </li>
+            <li><a href="#!">First Sidebar Link</a></li>
+            <li><a href="#!">Second Sidebar Link</a></li>
+            <li id="signout"><a href="#!">ログアウト</a></li>
+          </div>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only"><i class="material-icons">menu</i></a>
       </div>
@@ -61,10 +63,10 @@
           </div>
           <div class="row original-btn">
              <div class="right-align col s12 l9 offset-l3">
-               <button class="original-btn1 waves-effect waves-light btn-small">ああああああ</button>
-               <button class="original-btn2 waves-effect waves-light btn-small">ああああああ</button>
-               <button class="original-btn3 waves-effect waves-light btn-small">どうでもいいね</button>
-             </div>
+               <button class="original-btn1 waves-effect waves-light btn-small" onclick="counter()">ああああああ<span class="count"></span></button>
+               <button class="original-btn2 waves-effect waves-light btn-small" onclick="counter()">ああああああ<span class="count"></span></button>
+               <button class="original-btn3 waves-effect waves-light btn-small" onclick="counter()">どうでもいいね<span class="count"></span></button>
+              </div>
           </div>
           <span class="now"></span>
         </div>

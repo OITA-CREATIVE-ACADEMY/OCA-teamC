@@ -49,10 +49,14 @@ main, footer {
 .Return{
   margin-bottom: 0;
 }
-#signout{
-  bottom: 0;
-  position: absolute;
-}
+div.wrapper {
+  position: relative;
+ }
+ #signout{
+  width: 100%;
+  position: fixed;
+  bottom: 10vh;
+ }
 /********************
   TEAMC-8
 ********************/
