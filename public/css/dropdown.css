@@ -13,6 +13,7 @@ li ul li{
   border-right:  1px solid #000;
   width: 65px;
   border-radius: 2px;
+  margin-bottom: 1px;
   
 }
 ul li ul a li{
