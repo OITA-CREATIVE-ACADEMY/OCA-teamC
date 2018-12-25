@@ -37,10 +37,22 @@ main, footer {
   padding: 0 10px;
 }
 .original-btn2{
+  /* margin: 0 .5rem; */
   padding: 0 10px;
 }
 .original-btn3{
   padding: 0 10px;
+}
+.original-btn1, .original-btn2, .original-btn3 {
+  background-color: #fff;
+  border: 2px solid #26a69a;
+  border-radius: 18px;
+  color: #333;
+  line-height: 32px;
+  margin-top: 1rem;
+}
+.original-btn1:hover, .original-btn2:hover, .original-btn3:hover {
+  background-color: #fff;
 }
 
 /********************
