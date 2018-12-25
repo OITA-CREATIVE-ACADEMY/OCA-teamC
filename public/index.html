@@ -28,16 +28,18 @@
       <div id="firebaseui-auth-container"></div>
     <header>
       <div class="container">
-
         <ul id="slide-out" class="sidenav sidenav-fixed">
-          <li>
-            <a href="#!">
-              <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
-              <div class="side-user-name">ユーザーネーム</div>
-            </a>
-          </li>
-          <li><a href="#!">First Sidebar Link</a></li>
-          <li><a href="#!">Second Sidebar Link</a></li>
+          <div class="wrapper">
+            <li>
+              <a href="mypage/index.html">
+                <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
+                <div class="side-user-name">ユーザーネーム</div>
+              </a>
+            </li>
+            <li><a href="mypage/index.html">ユーザ設定</a></li>
+            <li><a href="#!">Second Sidebar Link</a></li>
+            <li id="signout"><a onclick="logout()">ログアウト</a></li>
+          </div>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-btn"><i class="material-icons">menu</i></a>
       </div>

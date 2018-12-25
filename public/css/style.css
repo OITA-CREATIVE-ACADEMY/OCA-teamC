@@ -141,3 +141,15 @@ main, footer {
   line-height: 3rem;
   margin-right: 1rem;
 }
+
+/**********************************
+ログアウト
+***********************************/
+div.wrapper {
+  position: relative;
+ }
+ #signout{
+  width: 100%;
+   position: fixed;
+   bottom: 10vh;
+ }

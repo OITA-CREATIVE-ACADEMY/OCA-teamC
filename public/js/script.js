@@ -165,3 +165,20 @@ function createcard(message,messageKey,formatDate,displayName) {//カードを�
 
   return cloneTask;
 }
+/**
+ * ログアウト処理
+ */
+function logout(){
+    if(confirm("ログアウトしても宜しいですか？")){
+      alert("ログアウトします");
+      firebase.auth().signOut().then(function() {
+      }).catch(function(error) {
+        console.log(error);
+        console.log("ログアウトに失敗しました");
+      });
+      $(".container").hide();
+      $(".material-icons").hide();
+    }else{
+      alert("キャンセルしました");
+    }
+}
