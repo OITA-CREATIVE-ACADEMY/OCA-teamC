@@ -8,13 +8,14 @@
 
   <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
 
   <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
 
   <script>
     // Firebaseの初期化
-var config = {
+    var config = {
         apiKey: "AIzaSyDb35fSBOaLGp6OHX30ibr4_DANdM9zr3Y",
         authDomain: "oca-teamc-f150d.firebaseapp.com",
         databaseURL: "https://oca-teamc-f150d.firebaseio.com",
@@ -24,9 +25,13 @@ var config = {
       };
     firebase.initializeApp(config);
   </script>
+
 </head>
 <body>
   <div id="firebaseui-auth-container"></div>
-  <div id="loader">Loading...</div>
+  <div id="posts">
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="js/realtime.js"></script>
 </body>
 </html>

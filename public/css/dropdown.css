@@ -15,9 +15,9 @@ li ul li:first-of-type{
   border-top: 1px solid #000;
 }
 
-#normal li ul{
+.normal li ul{
   display: none;
 }
-#normal li:hover ul{
+.normal li:hover ul{
   display: block;
 }
