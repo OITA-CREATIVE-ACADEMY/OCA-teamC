@@ -141,3 +141,25 @@ main, footer {
   line-height: 3rem;
   margin-right: 1rem;
 }
+
+/********************
+  TEAMC-MODAL
+********************/
+.modal-add-list {
+  margin-top: -1rem;
+}
+.modal-add-list > div {
+  padding: 0 .5rem !important;
+}
+.modal-add-list > div button {
+  background-color: #fff;
+  border: 2px solid #26a69a;
+  border-radius: 18px;
+  color: #333;
+  line-height: 32px;
+  margin-top: 1rem;
+  width: 100%;
+}
+.modal-add-list > div button:hover {
+  background-color: #fff;
+}
