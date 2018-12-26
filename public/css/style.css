@@ -30,6 +30,9 @@ main, footer {
 .sidenav {
     width: 220px;
 }
+.select{
+  background-color: #eee;
+}
 .original-btn{
   margin-bottom: 0;
 }
