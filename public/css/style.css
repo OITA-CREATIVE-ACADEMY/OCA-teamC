@@ -21,12 +21,6 @@ main, footer {
   }
 }
 
-@media only screen and (min-width : 992px) {
-  .sidenav-btn {
-    display: none;
-  }
-}
-
 .sidenav {
     width: 220px;
 }
@@ -181,9 +175,9 @@ main, footer {
 /**********************************
 ログアウト
 ***********************************/
-/* div.wrapper {
+div.wrapper {
   position: relative;
- } */
+ }
  #signout{
   width: 100%;
    position: fixed;
