@@ -50,17 +50,12 @@ $(function(){
 
         $('.original-btn3').click(function() {
           var itemKey = $(this).parents(".timeline-card").data('key');
-          console.log(firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`));
-          // if (firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`)) {
-          //   firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`).remove();
-          // } else {
+          console.log($(this).hasClass('changed'));
+          if ($(this).hasClass('changed')) {
+            firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`).remove();
+          } else {
             writeButtonData(itemKey,user);
-          // }
-
-
-
-          // messagesRef.child(itemKey + "/good/" + user.uid).remove();
-          // console.log(firebase.database().ref('/tasks/' + itemKey + '/users'));
+          }
         });
 
         $('.edit-text').on('click',function() {
@@ -108,7 +103,6 @@ $(function(){
       });
       }else{
         console.log('ログインしていない');
-
         // No user is signed in.
 
 
@@ -157,33 +151,10 @@ function writeUserData(userId, name,) {
 }
 
 function writeButtonData(itemKey,user) {//どうでも良いねボタンを押したuserをデータに保存
-
   firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`).set({
     good: user.displayName,
-  }, function(error) {
-    if (error) {
-      console.log('error: ' + error);
-      // The write failed...
-    } else {
-
-      // Data saved successfully!
-    }
   });
-  // firebase.database().ref('/tasks/' + itemKey + '/users').push({
-  //   good: user.uid,
-  // });
-  // console.log(
-  // firebase.database().ref('/tasks/' + itemKey + '/users').orderByKey()
-  //
-  // );
 }
-
-
-// firebase.database().ref('/tasks/' + itemKey + '/users').on('child_added', function (snapshot) {//メッセージを削除する時に自動発火
-//   var value = snapshot.val();
-//
-// });
-
 
 function writeNewPost(text,itemKey,time) {
   // A post entry.
@@ -205,12 +176,22 @@ function createcard(message,messageKey,formatDate,displayName,user) {//カード
   console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-name').text(displayName);
-  firebase.database().ref('/tasks/' + messageKey + '/users/' + user.uid).once('value', function (snapshot) {//ボタン
-    console.log(snapshot.numChildren());
-  });
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
-    console.log(snapshot.numChildren());
-    cloneTask.find('.gooduser').text(snapshot.numChildren());
+    var likecount    = snapshot.numChildren();
+    var opacitycount = 1.0 - likecount / 10;
+    cloneTask.find('.gooduser').text(likecount);
+    cloneTask.find('.card-body').css({
+        opacity: opacitycount,
+    });
+    firebase.database().ref('/tasks/' + messageKey + '/users/' + user.uid).once('value', function (snapshot) {//ボタン
+      console.log(snapshot.numChildren());
+      var likeuser = snapshot.numChildren();
+      if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
+        cloneTask.find('.like').addClass('changed');//居ればクラス追加
+      } else {
+        cloneTask.find('.like').removeClass('changed');//居なければ削除
+      }
+    });
   });
   // cloneTask.find('.delete-text').attr('data-key',messageKey);
   // cloneTask.find('.edit-text').attr('data-key',messageKey);

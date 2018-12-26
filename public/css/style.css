@@ -1,14 +1,14 @@
-.textMain{
+.textMain {
   word-break: break-all;
 }
-.text-right{
+.text-right {
   text-align: right;
 }
-.now{
+.now {
     font-size: 80%;
     opacity: 0.7;
 }
-.card-body{
+.card-body {
 	padding: 0.7em;
 }
 main, footer {
@@ -30,19 +30,21 @@ main, footer {
 .sidenav {
     width: 220px;
 }
-.original-btn{
+.original-btn {
   margin-bottom: 0;
 }
-.original-btn1{
+.original-btn1 {
   padding: 0 10px;
 }
-.original-btn2{
+.original-btn2 {
   padding: 0 10px;
 }
-.original-btn3{
+.original-btn3 {
   padding: 0 10px;
 }
-
+.changed {
+  color: blue;
+}
 /********************
   TEAMC-8
 ********************/
