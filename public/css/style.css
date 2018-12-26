@@ -48,9 +48,9 @@ main, footer {
   line-height: 32px;
   margin-top: 1rem;
 }
-.original-btn1:hover, .original-btn2:hover, .original-btn3:hover {
+/* .original-btn1:hover, .original-btn2:hover, .original-btn3:hover {
   background-color: #fff;
-}
+} */
 .changed {
   color: blue;
 }
@@ -100,6 +100,7 @@ main, footer {
   font-weight: normal;
   margin-left: 1rem;
   opacity: .7;
+  font-size: 12px;
 }
 
 /********************

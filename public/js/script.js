@@ -4,25 +4,25 @@ $(function(){
 
 
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log('ログイン状態チェック');
-
-
-    if (user) {
+    if (user) {//ユーザーがログインしていれば実行
       var userName = user.displayName;
       var uid = user.uid;
-      writeUserData(uid,userName);
+      writeUserData(uid,userName);//ユーザーの情報を登録
         console.log(user);
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
-        $('input#messageInput').characterCounter();
+        $('input#messageInput,#text1').characterCounter();
+
+        $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
+        $('#name').val(user.displayName);//設定画面のユーザー名
 
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
             $('.comment').click();
           }
         });
-        $('#modal-btn').click(function(){
+        $('#modal-btn').click(function(){//モーダル展開
           $('.comment').show();
           $('.edit-btn').hide();
           $('#modalMain').show();
@@ -38,27 +38,28 @@ $(function(){
           $('#btn-list').show();
         });
 
-        $('.comment').click(function(){//テキストと時間の取得
+        $('.comment').click(function(){//コメントをfirebaseに保存
             var text = $('#messageInput').val();
             if (text.length <= 250 && text) {
               var time = moment().format('YYYY-MM-DD HH:mm');
               var uid  = user.uid;
               messagesRef.push({text:text,time:time,uid:uid});
               $('#messageInput').val('');
+              $('.modal-close').click();
             }
         });
 
-        $('.original-btn3').click(function() {
+        $('.original-btn3').click(function() {//どうでも良いねボタンの処理
           var itemKey = $(this).parents(".timeline-card").data('key');
           console.log($(this).hasClass('changed'));
-          if ($(this).hasClass('changed')) {
+          if ($(this).hasClass('changed')) {//いいねを押して居たら削除
             firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`).remove();
-          } else {
+          } else {//押していなければ追加
             writeButtonData(itemKey,user);
           }
         });
 
-        $('.edit-text').on('click',function() {
+        $('.edit-text').on('click',function() {//編集処理（未実装）
           const itemKey = $(this).data('key');
           $('.edit-btn').show();
           $('.comment').hide();
@@ -73,14 +74,12 @@ $(function(){
         });
 
         $('.delete-text').click(function(){//カードの削除
-
           var card = $(this).parents(".timeline-card");
-
             const itemKey = $(card).data('key');
             messagesRef.child(itemKey).remove();
         });
         /*表示*/
-        messagesRef.on('child_added', function (snapshot) {//メッセージを追加する時に自動発火
+        messagesRef.on('child_added', function (snapshot) {//メッセージを追加（リアルタイム）
             var message    = snapshot.val();
             var messageKey = snapshot.key;
             var formatDate = message.time;
@@ -88,11 +87,11 @@ $(function(){
             const uid = message.uid;
             firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){//メッセージに変更がある時一度だけ変更を加える
               var displayName = snapshot.val().username;
-              var taskcopy = createcard(message,messageKey,formatDate,displayName,user);
+              var taskcopy = createcard(message,messageKey,formatDate,displayName,user,uid);
               taskcopy.appendTo($('#messagesDiv'));
             });
         });
-        messagesRef.on('child_removed', function (snapshot) {//メッセージを削除する時に自動発火
+        messagesRef.on('child_removed', function (snapshot) {//メッセージを削除（リアルタイム）
           var value = snapshot.val();
           // key取得
           var key = snapshot.key;
@@ -102,10 +101,9 @@ $(function(){
           item.remove();
       });
       }else{
-        console.log('ログインしていない');
+        $(".container").hide();
+        $(".material-icons").hide();
         // No user is signed in.
-
-
         // FirebaseUIインスタンス初期化
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
@@ -156,7 +154,7 @@ function writeButtonData(itemKey,user) {//どうでも良いねボタンを押�
   });
 }
 
-function writeNewPost(text,itemKey,time) {
+function writeNewPost(text,itemKey,time) {//編集処理（未実装）
   // A post entry.
   var postData = {
     text: text,
@@ -169,13 +167,14 @@ function writeNewPost(text,itemKey,time) {
   return messagesRef.update(updates);
 }
 
-function createcard(message,messageKey,formatDate,displayName,user) {//カードを作成
+function createcard(message,messageKey,formatDate,displayName,user,uid) {//カードを作成
   console.log(formatDate);
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
   cloneTask.attr('data-key',messageKey);
   console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
-  cloneTask.find('.timeline-user-name').text(displayName);
+  cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
+  cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
     var likecount    = snapshot.numChildren();
     var opacitycount = 1.0 - likecount / 10;
