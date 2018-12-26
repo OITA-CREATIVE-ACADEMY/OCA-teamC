@@ -1,6 +1,9 @@
 li ul {
   position: absolute;
   z-index: 10;
+  right:10px;
+  
+
 }
 
 li ul li{
@@ -9,10 +12,18 @@ li ul li{
   border-left:  1px solid #000;
   border-right:  1px solid #000;
   width: 65px;
-
+  border-radius: 2px;
+  margin-bottom: 1px;
+  
+}
+ul li ul a li{
+  color: #fff;
+  text-align: right;
+  text-align: center;
 }
 li ul li:first-of-type{
   border-top: 1px solid #000;
+  border-radius: 2px;
 }
 
 .normal li ul{
@@ -21,3 +32,16 @@ li ul li:first-of-type{
 .normal li:hover ul{
   display: block;
 }
+
+/* dropdown2 */
+li ul li{
+  
+  color: #232323;
+  background: #039be5;
+
+}
+.ddmenu{
+  width: 25px;
+  height: 25px;
+}
+
