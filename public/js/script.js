@@ -16,6 +16,7 @@ $(function(){
 
         $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
         $('#name').val(user.displayName);//設定画面のユーザー名
+        $('#email').val(user.email);//設定画面のemail
 
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
