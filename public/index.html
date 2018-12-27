@@ -25,8 +25,9 @@
     <link rel="stylesheet" href="css/dropdown.css">
   </head>
   <body>
-      <div id="firebaseui-auth-container"></div>
+      <div id="firebaseui-auth-container"></div><!-- ログイン画面の表示 -->
     <header>
+      <!-- Sidenav -->
       <div class="container">
         <ul id="slide-out" class="sidenav sidenav-fixed">
           <div class="wrapper">
@@ -49,21 +50,21 @@
   <div id="messagesDiv" class="col s12"></div><!-- カードが入る--->
     <div id="cardDamy" style="display: none">
       <div class="card timeline-card text-item" data-key="">
-        <div class="timeline-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
+        <a href="#" class="timeline-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></a>
         <div class="card-body">
           <div class="row">
             <div class="col s10 m11">
-              <div class="timeline-title"><span class="timeline-user-name"></span><span class="timeline-user-id">id:xxxxxxxxxx</span></div>
+              <div class="timeline-title"><span class="timeline-user-name"></span><span class="timeline-user-id"></span></div>
               <div class="textMain"></div>
             </div>
             <div class="col s2 m1 right ddmenu">
                 <ul class="dropmenu normal">
-                    <li><a href="#"><i class="material-icons">add</i></a>
+                    <li><a href="#!"><i class="material-icons">add</i></a>
                       <ul>
-                        <a href="#"><li class="delete-text" data-dismiss="modal">削除</li></a>
-                        <a href="#"><li class="edit-text modal-trigger" href="#modal1">編集</li></a>
-                        <a href="#"><li class="delete-text" data-dismiss="modal">削除</li></a>
-                        <a href="#"><li class="edit-text modal-trigger" href="#modal1">編集</li></a>
+                        <a href="#!"><li class="delete-text" data-dismiss="modal">削除</li></a>
+                        <a href="#!"><li class="edit-text modal-trigger" href="#modal1">編集</li></a>
+                        <a href="#!"><li class="delete-text" data-dismiss="modal">削除</li></a>
+                        <a href="#!"><li class="edit-text modal-trigger" href="#modal1">編集</li></a>
                       </ul>
                     </li>
                 </ul>
@@ -71,8 +72,8 @@
           </div>
           <div class="row original-btn">
              <div class="right-align col s12 l9 offset-l3">
-               <button class="original-btn1 waves-effect waves-light btn-small">ああああああ</button>
-               <button class="original-btn2 waves-effect waves-light btn-small">ああああああ</button>
+               <button class="original-btn1 waves-effect waves-light btn-small">ダミーボタン</button>
+               <button class="original-btn2 waves-effect waves-light btn-small">ダミーボタン</button>
                <button class="original-btn3 waves-effect waves-light btn-small like">どうでもいいね <span class="gooduser"></span></button>
              </div>
           </div>

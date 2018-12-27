@@ -50,6 +50,11 @@ $(function(){
             }
         });
 
+        // $('.timeline-user-icon').click(function() {//アイコンを押したらアイコンの人のプロフィールを表示する機能作りかけ
+        //   var itemKey = $(this).parents(".timeline-user-id").text;
+        //   console.log(itemKey);
+        // });
+
         $('.original-btn3').click(function() {//どうでも良いねボタンの処理
           var itemKey = $(this).parents(".timeline-card").data('key');
           console.log($(this).hasClass('changed'));
@@ -86,7 +91,7 @@ $(function(){
             var formatDate = message.time;
             console.log(message);
             const uid = message.uid;
-            firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){//メッセージに変更がある時一度だけ変更を加える
+            firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){
               var displayName = snapshot.val().username;
               var taskcopy = createcard(message,messageKey,formatDate,displayName,user,uid);
               taskcopy.appendTo($('#messagesDiv'));
@@ -177,8 +182,8 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
   cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
   cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
-    var likecount    = snapshot.numChildren();
-    var opacitycount = 1.0 - likecount / 10;
+    var likecount    = snapshot.numChildren();//どうでも良いねが押された数
+    var opacitycount = 1.0 - likecount / 10;//opacityを0.1ずつ変更
     cloneTask.find('.gooduser').text(likecount);
     cloneTask.find('.card-body').css({
         opacity: opacitycount,

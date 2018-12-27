@@ -30,16 +30,7 @@ main, footer {
 .original-btn{
   margin-bottom: 0;
 }
-.original-btn1 {
-  padding: 0 10px;
-}
-.original-btn2{
-  /* margin: 0 .5rem; */
-  padding: 0 10px;
-}
-.original-btn3 {
-  padding: 0 10px;
-}
+
 .original-btn1, .original-btn2, .original-btn3 {
   background-color: #fff;
   border: 2px solid #26a69a;
@@ -47,12 +38,15 @@ main, footer {
   color: #333;
   line-height: 32px;
   margin-top: 1rem;
+
+  padding: 0 10px;
 }
 /* .original-btn1:hover, .original-btn2:hover, .original-btn3:hover {
   background-color: #fff;
 } */
 .changed {
   color: blue;
+  /* background-color: red; */
 }
 /********************
   TEAMC-8

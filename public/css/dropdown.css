@@ -2,8 +2,6 @@ li ul {
   position: absolute;
   z-index: 10;
   right:10px;
-  
-
 }
 
 li ul li{
@@ -14,7 +12,7 @@ li ul li{
   width: 65px;
   border-radius: 2px;
   margin-bottom: 1px;
-  
+
 }
 ul li ul a li{
   color: #fff;
@@ -35,13 +33,10 @@ li ul li:first-of-type{
 
 /* dropdown2 */
 li ul li{
-  
   color: #232323;
   background: #039be5;
-
 }
 .ddmenu{
   width: 25px;
   height: 25px;
 }
-
