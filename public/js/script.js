@@ -94,7 +94,7 @@ $(function(){
             firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){
               var displayName = snapshot.val().username;
               var taskcopy = createcard(message,messageKey,formatDate,displayName,user,uid);
-              taskcopy.appendTo($('#messagesDiv'));
+              taskcopy.prependTo($('#messagesDiv'));
             });
         });
         messagesRef.on('child_removed', function (snapshot) {//メッセージを削除（リアルタイム）
