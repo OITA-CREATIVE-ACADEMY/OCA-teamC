@@ -34,7 +34,7 @@ $(function(){
 
         $('.comment').click(function(){//テキストと時間の取得
             var text = $('#messageInput').val();
-            if (text.length <= 250) {
+            if (text.length <= 250 && text) {
               var time = moment().format('YYYY-MM-DD HH:mm');
               var uid  = user.uid;
               messagesRef.push({text:text,time:time,uid:uid});

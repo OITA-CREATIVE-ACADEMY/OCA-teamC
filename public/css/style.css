@@ -1,3 +1,9 @@
+body{
+  background-color: #f8f8f8;
+}
+.btn-small{
+  background-color: #f8f8f8;
+}
 .textMain{
   word-break: break-all;
 }
