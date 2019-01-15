@@ -180,3 +180,9 @@ div.wrapper {
    position: fixed;
    bottom: 10vh;
  }
+ .branch{
+   display: none;
+ }
+ .alteration{
+   display: block;
+ }
