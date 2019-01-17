@@ -244,7 +244,8 @@ function logout(){
       });
       $(".container").hide();
       $(".material-icons").hide();
-      window.localStorage.removeItem(selectedUsers);
+      window.localStorage.removeItem('selectedUsers');
+      window.localStorage.removeItem('selectedEmail');
       location.href = 'index.html';
     }else{
       alert("キャンセルしました");
