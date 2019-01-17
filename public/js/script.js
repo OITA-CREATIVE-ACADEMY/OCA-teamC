@@ -7,7 +7,7 @@ $(function(){
     if (user) {//ユーザーがログインしていれば実行
       var userName = user.displayName;
       var uid = user.uid;
-      var email = user.email
+      var email = user.email;
       writeUserData(uid,userName,email);//ユーザーの情報を登録
         console.log(user);
         $('.modal').modal();
@@ -19,7 +19,13 @@ $(function(){
         $('#email').val(user.email);//設定画面のemail
         if (window.localStorage.getItem('selectedUsers')) {
           $('#name').val(window.localStorage.getItem('selectedUsers'));//設定画面のユーザー名
-          $('#email').val(window.localStorage.getItem('selectedEmail'));//設定画面のemail
+          var selectedEmail = window.localStorage.getItem('selectedEmail');
+          console.log(selectedEmail);
+          if (selectedEmail != user.email) {
+            $('.userEmail').css({
+                "display": "none",
+            });
+          }
         }
 
         $('#messageInput').keypress(function (e) {//enterでも反応させる
