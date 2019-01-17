@@ -1,15 +1,28 @@
+.container {
+  width: calc(100% - 40px);
+}
 .textMain {
+  margin-bottom: 2rem;
   word-break: break-all;
 }
 .text-right {
   text-align: right;
 }
-.now {
-    font-size: 80%;
-    opacity: 0.7;
+.timeline-date {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.timeline-delet-btn {
+  bottom: .5rem;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+.timeline-delet-btn i {
+  color: rgba(255, 100, 100, 1) !important;
 }
 .card-body {
-	padding: 0.7em;
+	padding: 1rem 0;
 }
 main, footer {
   padding-left: 220px;
@@ -23,30 +36,36 @@ main, footer {
 
 .sidenav {
     width: 220px;
+    background-color: rgba(255, 100, 100, 1);
+    box-shadow: none;
 }
-.select{
-  background-color: #eee;
+.original-btn {
+  margin-bottom: .5rem;
 }
-.original-btn{
-  margin-bottom: 0;
-}
-
 .original-btn1, .original-btn2, .original-btn3 {
   background-color: #fff;
-  border: 2px solid #26a69a;
-  border-radius: 18px;
-  color: #333;
-  line-height: 32px;
-  margin-top: 1rem;
-
+  box-shadow: none;
+  border: 1px solid rgba(255, 100, 100, 1);
+  border-radius: 14px;
+  color: rgba(255, 100, 100, 1);
+  cursor: pointer;
+  font-size: 13px;
+  height: 28px;
+  line-height: 26px;
+  margin-bottom: .5rem;
+  margin-left: .25rem;
+  overflow: hidden;
   padding: 0 10px;
 }
-/* .original-btn1:hover, .original-btn2:hover, .original-btn3:hover {
+.original-btn1:focus, .original-btn2:focus, .original-btn3:focus {
   background-color: #fff;
-} */
+}
 .changed {
-  color: blue;
-  /* background-color: red; */
+  background-color: rgba(255, 100, 100, 1) !important;
+  color: #fff;
+}
+.original-btn button:first-child {
+  margin-left: 0;
 }
 /********************
   TEAMC-8
@@ -69,7 +88,11 @@ main, footer {
   TEAMC-9
 ********************/
 .timeline-card {
-  margin-left: 70px;
+  border-bottom: 1px solid #ccc;
+  box-shadow: none;
+  margin: 0;
+  margin: 1rem 0;
+  padding-left: 70px;
 }
 .timeline-user-icon {
   background-color: #fff;
@@ -79,20 +102,22 @@ main, footer {
   border-radius: 50%;
   height: 56px;
   position: absolute;
-  top: 0;
-  left: -70px;
+  top: 1rem;
+  left: 0;
   width: 56px;
+  box-shadow: none;
 }
 .timeline-title {
   overflow: hidden;
   white-space: nowrap;
+  margin-bottom: .25rem;
 }
 .timeline-user-name {
   font-weight: bold;
 }
 .timeline-user-id {
   font-weight: normal;
-  margin-left: 1rem;
+  margin-left: .5rem;
   opacity: .7;
   font-size: 12px;
 }
@@ -100,10 +125,20 @@ main, footer {
 /********************
   TEAMC-5
 ********************/
+.sidenav li.select a {
+  background-color: rgba(0, 0, 0, .05);
+}
+.sidenav li > a {
+  color: #fff;
+}
 .sidenav li:first-child > a {
    height: auto;
    padding-bottom: 48px;
    padding-top: 48px;
+}
+.sidenav li > a > i {
+  margin: 0 16px 0 0 !important;
+  color: rgba(255, 255, 255, 0.54) !important;
 }
 .side-user-icon {
   background-color: #fff;
@@ -114,12 +149,13 @@ main, footer {
   margin: 0 auto;
   height: 96px;
   width: 96px;
+  box-shadow: none;
 }
 .side-user-name {
-  font-weight: bold;
   line-height: 1.5;
   padding: 13.5px 0;
   text-align: center;
+  color: #fff;
 }
 
 /********************
@@ -176,7 +212,7 @@ div.wrapper {
   position: relative;
  }
  #signout{
-  width: 100%;
+   width: 100%;
    position: fixed;
    bottom: 10vh;
  }
