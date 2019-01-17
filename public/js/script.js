@@ -180,10 +180,8 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
-   if(uid === user.uid){
-     cloneTask.find('.branch').addClass('alteration');
-     $("branch").addClass("alteration")
-     console.log(user.uid);
+   if (uid === user.uid) {
+     cloneTask.find('.branch').addClass('alteration');//コメントが自分のものであればクラスを追加
    }
   console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
