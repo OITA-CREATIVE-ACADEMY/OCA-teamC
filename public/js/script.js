@@ -7,19 +7,20 @@ $(function(){
     if (user) {//ユーザーがログインしていれば実行
       var userName = user.displayName;
       var uid = user.uid;
-      writeUserData(uid,userName);//ユーザーの情報を登録
+      var email = user.email
+      writeUserData(uid,userName,email);//ユーザーの情報を登録
         console.log(user);
         $('.modal').modal();
         $('select').formSelect();
         $('.sidenav').sidenav();
         $('input#messageInput,#text1').characterCounter();
         $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
-
-
-
-            $('#name').val(user.displayName);//設定画面のユーザー名
-            $('#email').val(user.email);//設定画面のemail
-
+        $('#name').val(user.displayName);//設定画面のユーザー名
+        $('#email').val(user.email);//設定画面のemail
+        if (window.localStorage.getItem('selectedUsers')) {
+          $('#name').val(window.localStorage.getItem('selectedUsers'));//設定画面のユーザー名
+          $('#email').val(window.localStorage.getItem('selectedEmail'));//設定画面のemail
+        }
 
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
@@ -53,14 +54,22 @@ $(function(){
             }
         });
 
-        $('.timeline-user-icon').click(function() {//アイコンを押したらアイコンの人のプロフィールを表示する機能作りかけ
+        $('.userSetting').click(function() {
+          var Name = user.displayName;
+          window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
+          window.location.href = "mypage/index.html";
+        });
+
+        $('.timeline-user-icon').click(function() {//アイコンを押したらアイコンの人のプロフィールを表示
           var itemKey = $(this).parents(".timeline-card").data('uid');
           console.log(itemKey);
           var otherUsers = firebase.database().ref('/users/' + itemKey);
           otherUsers.once('value').then(function(snapshot){
-            var Name = snapshot.val().username;
-            // $('#name').val(Name);//設定画面のユーザー名
-
+            var Name  = snapshot.val().username;
+            var Email = snapshot.val().email;
+            window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
+            window.localStorage.setItem('selectedEmail', Email);
+            window.location.href = "mypage/index.html";
           });
         });
 
@@ -155,10 +164,10 @@ $(function(){
 });
 
 //ユーザの名前をusersに保存する
-function writeUserData(userId, name,) {
+function writeUserData(userId, name, email) {
   firebase.database().ref('users/' + userId).set({
     username: name,
-    //email: email,
+    email: email,
     //profile_picture : imageUrl
   });
 }
@@ -227,6 +236,7 @@ function logout(){
       });
       $(".container").hide();
       $(".material-icons").hide();
+      window.localStorage.removeItem(selectedUsers);
       location.href = 'index.html';
     }else{
       alert("キャンセルしました");
