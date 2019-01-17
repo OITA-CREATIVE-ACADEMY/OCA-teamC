@@ -6,6 +6,7 @@
     <title>Welcome to Firebase Hosting</title>
     <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
@@ -57,17 +58,8 @@
               <div class="timeline-title"><span class="timeline-user-name"></span><span class="timeline-user-id"></span></div>
               <div class="textMain"></div>
             </div>
-            <div class="col s2 m1 right ddmenu">
-                <ul class="dropmenu normal">
-                    <li><a href="#!"><i class="material-icons">add</i></a>
-                      <ul>
-                        <a href="#!"><li class="delete-text" data-dismiss="modal">削除</li></a>
-                        <a href="#!"><li class="edit-text modal-trigger" href="#modal1">編集</li></a>
-                        <a href="#!"><li class="delete-text" data-dismiss="modal">削除</li></a>
-                        <a href="#!"><li class="edit-text modal-trigger" href="#modal1">編集</li></a>
-                      </ul>
-                    </li>
-                </ul>
+            <div class="col s2 m1 right">
+                    <a href="#!"><p class="delete-text branch" data-dismiss="modal"><i class="fas fa-trash"></i></p></a>
             </div>
           </div>
           <div class="row original-btn">
@@ -140,7 +132,9 @@
       </a>
     </div>
   </div>
+
 </main>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="lib/materialize/js/materialize.min.js"></script>

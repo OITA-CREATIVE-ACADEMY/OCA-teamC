@@ -18,6 +18,8 @@ $(function(){
         $('#name').val(user.displayName);//設定画面のユーザー名
         $('#email').val(user.email);//設定画面のemail
 
+
+
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
             $('.comment').click();
@@ -177,6 +179,10 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
   console.log(formatDate);
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
   cloneTask.attr('data-key',messageKey);
+  cloneTask.attr('data-uid',uid);
+   if (uid === user.uid) {
+     cloneTask.find('.branch').addClass('alteration');//コメントが自分のものであればクラスを追加
+   }
   console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
