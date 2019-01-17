@@ -15,6 +15,7 @@ $(function(){
         $('input#messageInput,#text1').characterCounter();
 
         $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
+        $('.side-user-id').text('@' + uid);//サイドバーのIDの表示
         $('#name').val(user.displayName);//設定画面のユーザー名
         $('#email').val(user.email);//設定画面のemail
 
@@ -180,7 +181,7 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
   console.log(messageKey);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
-  cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
+  cloneTask.find('.timeline-user-id').text('@' + uid);//IDの表示
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
     var likecount    = snapshot.numChildren();//どうでも良いねが押された数
     var opacitycount = 1.0 - likecount / 10;//opacityを0.1ずつ変更
