@@ -21,9 +21,9 @@ $(function(){
           $('#name').val(window.localStorage.getItem('selectedUsers'));//設定画面のユーザー名
           var selectedEmail = window.localStorage.getItem('selectedEmail');
           console.log(selectedEmail);
-          if (selectedEmail != user.email) {
+          if (selectedEmail !== user.email) {
             $('.userEmail').css({
-                "display": "none",
+                'display': 'none',
             });
           }
         }
@@ -60,9 +60,11 @@ $(function(){
             }
         });
 
-        $('.userSetting').click(function() {
-          var Name = user.displayName;
+        $('.userSetting').click(function() {//ユーザー設定に飛ぶときの処理
+          var Name  = user.displayName;
+          var Email = user.email;
           window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
+          window.localStorage.setItem('selectedEmail', Email);
           window.location.href = "mypage/index.html";
         });
 
