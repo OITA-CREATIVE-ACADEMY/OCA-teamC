@@ -30,7 +30,7 @@
         <ul id="slide-out" class="sidenav sidenav-fixed">
           <li>
             <a href="#!">
-              <div class="side-user-icon z-depth-1" style="background-image: url(../img/dummy.jpg)"></div>
+              <div class="side-user-icon z-depth-1"></div>
               <div class="side-user-name"></div>
             </a>
           </li>
@@ -49,8 +49,8 @@
               <div class="card-content">
                 <div class="row">
                   <div class="mypage-file-field file-field input-field col s12">
-                    <div class="mypage-user-icon z-depth-1" style="background-image: url(../img/dummy.jpg)">
-                      <input type="file">
+                    <div class="mypage-user-icon z-depth-1">
+                      <p><input type="file" name="upfile" id="upfile" /></p>
                     </div>
                   </div>
                 </div>
@@ -120,5 +120,15 @@
     <script src="../lib/materialize/js/materialize.min.js"></script>
     <script src="../lib/moment.min.js"></script>
     <script src="../js/script.js"></script>
+    <!-- <script>
+        // ファイル選択フォームに変更時に、フォームの値をコンソールログに表示する
+        $("#upfile").change(function(){
+          var val = document.getElementById("upfile").files[0].name;
+          console.log(val);
+        });
+        imagesRef.put(val).then(function(snapshot) {
+        console.log('Uploaded a blob or file!');
+});
+    </script> -->
   </body>
 </html>
