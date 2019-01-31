@@ -7,8 +7,10 @@ $(function(){
       var uid = user.uid;
       var email = user.email;
       firebase.database().ref('users/' + uid).on('value', function (snapshot) {//ユーザー情報の判定
-        var count   = snapshot.numChildren();
-        var sex     = snapshot.val().sex;
+        var count = snapshot.numChildren();
+        var sex   = snapshot.val().sex;
+        var text  = snapshot.val().text;
+        $('#textarea1').val(text);
           $('#' + sex).prop("checked", true);
           if (count = 0) {
             var sex = 'other';
@@ -29,9 +31,11 @@ $(function(){
             $('.myName').addClass('hide');
             $('.otherName').removeClass('hide');
             firebase.database().ref('users/' + selectedUid).on('value', function (snapshot) {//ユーザー情報の判定
-              var sex = snapshot.val().sex;
+              var sex  = snapshot.val().sex;
+              var text = snapshot.val().text;
+              $('#textarea1').val(text);
+              $('#textarea1').prop("disabled", true);
               $('#' + sex).prop("checked", true);
-              $('#' + sex).prop("disabled", true);
               $("input[name=group1]:not(:checked)").parents(".input-type-radio").hide();
               });
           } else {
@@ -253,8 +257,6 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
       }
     });
   });
-  // cloneTask.find('.delete-text').attr('data-key',messageKey);
-  // cloneTask.find('.edit-text').attr('data-key',messageKey);
   cloneTask.find('.now').text(formatDate);
 
   return cloneTask;
