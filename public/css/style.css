@@ -52,6 +52,9 @@ main, footer {
   color: blue;
   /* background-color: red; */
 }
+#otherName {
+  color: inherit;
+}
 /********************
   TEAMC-8
 ********************/

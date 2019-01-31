@@ -1,32 +1,66 @@
 $(function(){
   var messagesRef = firebase.database().ref('/tasks/');//モーダルを使う為の記述
   // var usersRef    = firebase.database().ref('/users/');
-
-
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {//ユーザーがログインしていれば実行
       var userName = user.displayName;
       var uid = user.uid;
       var email = user.email;
-      writeUserData(uid,userName,email);//ユーザーの情報を登録
+      firebase.database().ref('users/' + uid).on('value', function (snapshot) {//ユーザー情報の判定
+        var count   = snapshot.numChildren();
+        var sex     = snapshot.val().sex;
+          $('#' + sex).prop("checked", true);
+          if (count = 0) {
+            var sex = 'other';
+            writeUserData(uid,userName,email,sex);//ユーザーの情報を登録
+          }
+        });
         console.log(user);
         $('.modal').modal();
-        $('select').formSelect();
         $('.sidenav').sidenav();
-        $('input#messageInput,#text1').characterCounter();
-        $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
-        $('#name').val(user.displayName);//設定画面のユーザー名
-        $('#email').val(user.email);//設定画面のemail
+        $('#messageInput,#text1,#textarea1').characterCounter();
+        $('.side-user-name').text(userName);//サイドバーのユーザー名
+        $('.name').val(userName);//設定画面のユーザー名
+        $('#email').val(email);//設定画面のemail
         if (window.localStorage.getItem('selectedUsers')) {
-          $('#name').val(window.localStorage.getItem('selectedUsers'));//設定画面のユーザー名
-          var selectedEmail = window.localStorage.getItem('selectedEmail');
-          console.log(selectedEmail);
-          if (selectedEmail !== user.email) {
-            $('.userEmail').css({
-                'display': 'none',
-            });
+          $('.name').val(window.localStorage.getItem('selectedUsers'));//設定画面のユーザー名
+          var selectedUid = window.localStorage.getItem('selectedUid');
+          if (selectedUid !== user.uid) {
+            $('.myName').addClass('hide');
+            $('.otherName').removeClass('hide');
+            firebase.database().ref('users/' + selectedUid).on('value', function (snapshot) {//ユーザー情報の判定
+              var sex = snapshot.val().sex;
+              $('#' + sex).prop("checked", true);
+              $('#' + sex).prop("disabled", true);
+              $("input[name=group1]:not(:checked)").parents(".input-type-radio").hide();
+              });
+          } else {
+            $('.userEmail').removeClass('hide');
           }
         }
+        $('.savebtn').click(function(){
+          var myName = $('.name').val();
+          var radiobtn = $('input[name=group1]:checked').val();
+          var textarea = $('#textarea1').val();
+          console.log(user);
+          user.updateProfile({
+            displayName: myName,
+            }).then(function() {
+              // Update successful.
+              firebase.database().ref('users/' + uid).set({
+                username: myName,
+                email: email,
+                sex: radiobtn,
+                text: textarea,
+              });
+              window.localStorage.setItem('selectedUsers', myName);
+              location.reload();
+            }).catch(function(error) {
+              // An error happened.
+              console.log(error);
+              alert('エラーが発生しました');
+          });
+        });
 
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
@@ -38,10 +72,6 @@ $(function(){
           $('.edit-btn').hide();
           $('#modalMain').show();
           $('#btn-list').hide();
-
-          // console.log($('#modalMain')[0]);
-          // console.log(document.getElementById('modalMain'));
-
         });
 
         $('#modal-switch').click(function(){
@@ -53,7 +83,7 @@ $(function(){
             var text = $('#messageInput').val();
             if (text.length <= 250 && text) {
               var time = moment().format('YYYY-MM-DD HH:mm');
-              var uid  = user.uid;
+              // var uid  = user.uid;
               messagesRef.push({text:text,time:time,uid:uid});
               $('#messageInput').val('');
               $('.modal-close').click();
@@ -61,10 +91,8 @@ $(function(){
         });
 
         $('.userSetting').click(function() {//ユーザー設定に飛ぶときの処理
-          var Name  = user.displayName;
-          var Email = user.email;
-          window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
-          window.localStorage.setItem('selectedEmail', Email);
+          window.localStorage.setItem('selectedUsers', userName);//ローカルストレージに一時的に保存
+          window.localStorage.setItem('selectedUid', user.uid);
           window.location.href = "mypage/index.html";
         });
 
@@ -74,9 +102,8 @@ $(function(){
           var otherUsers = firebase.database().ref('/users/' + itemKey);
           otherUsers.once('value').then(function(snapshot){
             var Name  = snapshot.val().username;
-            var Email = snapshot.val().email;
             window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
-            window.localStorage.setItem('selectedEmail', Email);
+            window.localStorage.setItem('selectedUid', itemKey);
             window.location.href = "mypage/index.html";
           });
         });
@@ -172,10 +199,11 @@ $(function(){
 });
 
 //ユーザの名前をusersに保存する
-function writeUserData(userId, name, email) {
+function writeUserData(userId, name, email, sex) {
   firebase.database().ref('users/' + userId).set({
     username: name,
     email: email,
+    sex: sex,
     //profile_picture : imageUrl
   });
 }
@@ -238,15 +266,15 @@ function logout(){
     if(confirm("ログアウトしても宜しいですか？")){
       alert("ログアウトします");
       firebase.auth().signOut().then(function() {
+        $(".container").hide();
+        $(".material-icons").hide();
+        window.localStorage.removeItem('selectedUsers');
+        window.localStorage.removeItem('selectedUid');
+        location.href = 'index.html';
       }).catch(function(error) {
         console.log(error);
         console.log("ログアウトに失敗しました");
       });
-      $(".container").hide();
-      $(".material-icons").hide();
-      window.localStorage.removeItem('selectedUsers');
-      window.localStorage.removeItem('selectedEmail');
-      location.href = 'index.html';
     }else{
       alert("キャンセルしました");
     }
