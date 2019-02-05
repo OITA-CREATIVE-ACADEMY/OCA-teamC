@@ -27,14 +27,17 @@ $(function(){
         if (window.localStorage.getItem('selectedUsers')) {
           $('.name').val(window.localStorage.getItem('selectedUsers'));//設定画面のユーザー名
           var selectedUid = window.localStorage.getItem('selectedUid');
-          if (selectedUid !== user.uid) {
+          if (selectedUid !== user.uid) {//自分以外のユーザーだったら
             $('.myName').addClass('hide');
+            $('#textarea1').parent().parent().remove();
             $('.otherName').removeClass('hide');
             firebase.database().ref('users/' + selectedUid).on('value', function (snapshot) {//ユーザー情報の判定
               var sex  = snapshot.val().sex;
               var text = snapshot.val().text;
-              $('#textarea1').val(text);
-              $('#textarea1').prop("disabled", true);
+              console.log(text);
+              $('#textarea2').text(text);//2に変更
+              // $('#textarea1').val(text);
+              // $('#textarea1').prop("disabled", true);
               $('#' + sex).prop("checked", true);
               $("input[name=group1]:not(:checked)").parents(".input-type-radio").hide();
               });
