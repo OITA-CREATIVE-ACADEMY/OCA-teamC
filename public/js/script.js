@@ -16,6 +16,22 @@ $(function(){
         $('#name').val(user.displayName);//設定画面のユーザー名
         $('#email').val(user.email);//設定画面のemail
 
+        /**アイコン表示 */
+        firebase.database().ref(`/users/${uid}/iconImage`).once('value').then(function(snapshot) {
+          var flug = snapshot.val()
+          if(flug != null){
+            firebase.storage().ref(`/userIcon/${uid}/${flug}`).getDownloadURL().then((url) => {
+              $('.side-user-icon , .mypage-user-icon').css('background-image','url(' + url + ')');
+            });
+          }else{
+            var imagesRef = firebase.storage().ref('dummy.jpg');
+            // 初期アイコンを全てにコメントに表示
+            imagesRef.getDownloadURL().then((url) => {
+             $('.side-user-icon , .mypage-user-icon').css('background-image','url(' + url + ')');
+            });
+          }
+        });
+
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
             $('.comment').click();
@@ -107,7 +123,7 @@ $(function(){
         /**
          *アイコン画面の変更
          */
-          $("#upfile").change(function(){
+        $("#upfile").change(function(){
           var fileName = document.getElementById("upfile").files[0].name;//fail名
           var image = document.getElementById("upfile").files[0]
           var upImageRef = firebase.storage().ref(`/userIcon/${uid}`).child(fileName);
@@ -116,20 +132,19 @@ $(function(){
             firebase.database().ref(`/users/${uid}`).set({username:userName,iconImage:fileName});//ユーザにアイコン名を保存
           });
           firebase.storage().ref(`/userIcon/${uid}/${fileName}`).getDownloadURL().then((url) => {
-            $('.side-user-icon , .timeline-user-icon , .mypage-user-icon ,.side-user-icon').css('background-image','url(' + url + ')');
+            $('.mypage-user-icon').css('background-image','url(' + url + ')');
           }).catch((error) => {
             // 変更したアイコンがない場合
             var imagesRef = firebase.storage().ref('dummy.jpg');
             imagesRef.getDownloadURL().then((url) => {
-           $('.side-user-icon , .timeline-user-icon , .mypage-user-icon ,.side-user-icon').css('background-image','url(' + url + ')');
-        });
-        var imagesRef = firebase.storage().ref('dummy.jpg');
-        // 初期アイコンを全てにコメントに表示
-        imagesRef.getDownloadURL().then((url) => {
-        cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
-        $('.side-user-icon,.mypage-user-icon,side-user-icon ').css('background-image','url(' + url + ')');
-        });
-
+              $('.mypage-user-icon').css('background-image','url(' + url + ')');
+            });
+            var imagesRef = firebase.storage().ref('dummy.jpg');
+            // 初期アイコンを全てにコメントに表示
+            imagesRef.getDownloadURL().then((url) => {
+            cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
+            $('.mypage-user-icon').css('background-image','url(' + url + ')');
+            });
           });
         });
       }else{
@@ -216,7 +231,6 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
     if(flug != null){
       firebase.storage().ref(`/userIcon/${uid}/${flug}`).getDownloadURL().then((url) => {
         cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
-        $('.side-user-icon,.mypage-user-icon,side-user-icon ').css('background-image','url(' + url + ')');
       });
     }else{
       var imagesRef = firebase.storage().ref('dummy.jpg');
