@@ -124,12 +124,12 @@ $(function(){
          *アイコン画面の変更
          */
         $("#upfile").change(function(){
-          var fileName = document.getElementById("upfile").files[0].name;//fail名
-          var image = document.getElementById("upfile").files[0]
+          var fileName = $("#upfile").files[0].name;//fail名
+          var image = $("#upfile").files[0]
           var upImageRef = firebase.storage().ref(`/userIcon/${uid}`).child(fileName);
           upImageRef.put(image).then(function(snapshot) {
             console.log('Uploaded a blob or file!');
-            firebase.database().ref(`/users/${uid}`).set({username:userName,iconImage:fileName});//ユーザにアイコン名を保存
+            firebase.database().ref(`/users/${uid}`).update({iconImage:fileName});//ユーザにアイコン名を保存
           });
           firebase.storage().ref(`/userIcon/${uid}/${fileName}`).getDownloadURL().then((url) => {
             $('.mypage-user-icon').css('background-image','url(' + url + ')');
