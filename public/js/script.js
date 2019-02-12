@@ -83,10 +83,15 @@ $(function(){
           $('#btn-list').hide();
         });
 
-        $('#modal-switch').click(function(){
-          $('#modalMain').hide();
-          $('#btn-list').show();
-        });
+        // $('#modal-switch-list').click(function(){
+        //   $('#modalMain').hide();
+        //   $('#btn-list').show();
+        // });
+
+        // $('#modal-switch-main').click(function(){
+        //   $('#modalMain').show();
+        //   $('#btn-list').hide();
+        // });
 
         $('.comment').click(function(){//コメントをfirebaseに保存
             var text = $('#messageInput').val();

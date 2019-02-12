@@ -80,7 +80,9 @@
         <div class="modal-content">
             <div class="input-field">
               <input id="messageInput" type="text" class="validate" data-length="250">
-          	  <label for="messageInput">テキストを入力</label>
+              <label for="messageInput">テキストを入力</label>
+              <button class="waves-effect waves-light btn">バラバラ</button>
+              <button class="waves-effect waves-light btn">バラバラ</button>
             </div>
           </div>
           <div class="modal-footer row">
@@ -93,8 +95,8 @@
                 <!-- On -->
               </label>
             </div>
-            <div class="col s5">
-              <a id="modal-switch" class="waves-effect waves-light btn">ボタンを設定できます</a>
+            <div class="nav col s5">
+              <a id="modal-switch-list" class="waves-effect waves-light btn">ボタンを設定できます</a>
             </div>
             <button type="button" class="comment btn col s2">Add</button>
             <button href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">Agree</button>
@@ -102,7 +104,6 @@
       </div>
       <div class id="btn-list">
         <div class="modal-content">
-          <form>
             <div class="row">
               <div class="input-field col s12">
                 <input id="text1" type="text" data-length="6" class="validate">
@@ -118,8 +119,9 @@
               <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">卵かけご飯</button></div>
               <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">拳で</button></div>
               <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">スマブラ</button></div>
+
+              <div class="col s12 m6 l3"><a id="modal-switch-main" class="waves-effect waves-light btn">コメントに戻る</a></div>
             </div>
-          </form>
         </div>
        <span class="now"></span>
       </div>
@@ -139,5 +141,6 @@
     <script src="lib/materialize/js/materialize.min.js"></script>
     <script src="lib/moment.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/button.js"></script>
   </body>
 </html>
