@@ -6,15 +6,16 @@ $(function(){
       var userName = user.displayName;
       var uid = user.uid;
       var email = user.email;
-      firebase.database().ref('users/' + uid).on('value', function (snapshot) {//ユーザー情報の判定
+      firebase.database().ref('users/' + uid).once('value', function (snapshot) {//ユーザー情報の判定
         var count = snapshot.numChildren();
         var sex   = snapshot.val().sex;
         var text  = snapshot.val().text;
         $('#textarea1').val(text);
           $('#' + sex).prop("checked", true);
-          if (count = 0) {
+          if (count = 0) {//初ログインの人のみ登録
             var sex = 'other';
-            writeUserData(uid,userName,email,sex);//ユーザーの情報を登録
+            var iconImage = '画像なし';
+            writeUserData(uid,userName,email,sex,iconImage);//ユーザーの情報を登録
           }
         });
         console.log(user);
@@ -54,12 +55,42 @@ $(function(){
             displayName: myName,
             }).then(function() {
               // Update successful.
-              firebase.database().ref('users/' + uid).set({
+              firebase.database().ref('users/' + uid).update({
                 username: myName,
                 email: email,
                 sex: radiobtn,
                 text: textarea,
               });
+
+
+
+              var fileName = $("#upfile")[0].files[0].name;//file名
+              var image = $("#upfile")[0].files[0];
+              var upImageRef = firebase.storage().ref(`/userIcon/${uid}`).child(fileName);
+              upImageRef.put(image).then(function(snapshot) {
+                console.log('Uploaded a blob or file!');
+                firebase.database().ref(`/users/${uid}`).update({iconImage:fileName});//ユーザにアイコン名を保存
+              });
+              firebase.storage().ref(`/userIcon/${uid}/${fileName}`).getDownloadURL().then((url) => {
+                $('.mypage-user-icon').css('background-image','url(' + url + ')');
+              }).catch((error) => {
+                // 変更したアイコンがない場合
+                var imagesRef = firebase.storage().ref('dummy.jpg');
+                imagesRef.getDownloadURL().then((url) => {
+                  $('.mypage-user-icon').css('background-image','url(' + url + ')');
+                });
+                var imagesRef = firebase.storage().ref('dummy.jpg');
+                // 初期アイコンを全てにコメントに表示
+                imagesRef.getDownloadURL().then((url) => {
+                cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
+                $('.mypage-user-icon').css('background-image','url(' + url + ')');
+                });
+              });
+
+
+
+
+
               window.localStorage.setItem('selectedUsers', myName);
               location.reload();
             }).catch(function(error) {
@@ -70,6 +101,23 @@ $(function(){
         });
 
 
+
+        /**アイコン表示 */
+        firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot) {
+          var flug = snapshot.val().iconImage;
+          console.log(flug);
+          if(flug !== '画像なし'){
+            firebase.storage().ref(`/userIcon/${uid}/${flug}`).getDownloadURL().then((url) => {
+              $('.side-user-icon , .mypage-user-icon').css('background-image','url(' + url + ')');
+            });
+          }else{
+            var imagesRef = firebase.storage().ref('dummy.jpg');
+            // 初期アイコンを全てにコメントに表示
+            imagesRef.getDownloadURL().then((url) => {
+             $('.side-user-icon , .mypage-user-icon').css('background-image','url(' + url + ')');
+            });
+          }
+        });
 
         $('#messageInput').keypress(function (e) {//enterでも反応させる
           if (e.keyCode == 13) {
@@ -151,12 +199,12 @@ $(function(){
             var message    = snapshot.val();
             var messageKey = snapshot.key;
             var formatDate = message.time;
-            console.log(message);
+            // console.log(message);
             const uid = message.uid;
             firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){
               var displayName = snapshot.val().username;
               var taskcopy = createcard(message,messageKey,formatDate,displayName,user,uid);
-              taskcopy.appendTo($('#messagesDiv'));
+              taskcopy.prependTo($('#messagesDiv'));
             });
         });
         messagesRef.on('child_removed', function (snapshot) {//メッセージを削除（リアルタイム）
@@ -167,7 +215,14 @@ $(function(){
           var item = $(`[data-key=${key}]`)[0];
           console.log(item);
           item.remove();
-      });
+        });
+        /**
+         *アイコン画面の変更
+         */
+        $("#upfile").change(function(){
+          var image = $("#upfile")[0].files[0];
+          $("#upfile").value(image);
+        });
       }else{
         $(".container").hide();
         $(".material-icons").hide();
@@ -208,11 +263,12 @@ $(function(){
 });
 
 //ユーザの名前をusersに保存する
-function writeUserData(userId, name, email, sex) {
+function writeUserData(userId, name, email, sex, iconImage) {
   firebase.database().ref('users/' + userId).set({
     username: name,
     email: email,
     sex: sex,
+    iconImage: iconImage,
     //profile_picture : imageUrl
   });
 }
@@ -237,7 +293,7 @@ function writeNewPost(text,itemKey,time) {//編集処理（未実装）
 }
 
 function createcard(message,messageKey,formatDate,displayName,user,uid) {//カードを作成
-  console.log(formatDate);
+  // console.log(formatDate);
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
@@ -249,6 +305,25 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
   cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
+
+  /** コメントにアイコンを表示する*/
+  firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot) {
+    var flug = snapshot.val().iconImage;
+    console.log(flug);
+    if(flug !== '画像なし'){
+      firebase.storage().ref(`/userIcon/${uid}/${flug}`).getDownloadURL().then((url) => {
+        cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
+      });
+    }else{
+      var imagesRef = firebase.storage().ref('dummy.jpg');
+      // 初期アイコンを全てにコメントに表示
+      imagesRef.getDownloadURL().then((url) => {
+        console.log(url);
+      cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
+      });
+    }
+  });
+
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
     var likecount    = snapshot.numChildren();//どうでも良いねが押された数
     var opacitycount = 1.0 - likecount / 10;//opacityを0.1ずつ変更
@@ -257,7 +332,7 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
         opacity: opacitycount,
     });
     firebase.database().ref('/tasks/' + messageKey + '/users/' + user.uid).once('value', function (snapshot) {//ボタン
-      console.log(snapshot.numChildren());
+      // console.log(snapshot.numChildren());
       var likeuser = snapshot.numChildren();
       if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
         cloneTask.find('.like').addClass('changed');//居ればクラス追加
