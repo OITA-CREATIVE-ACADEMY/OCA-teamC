@@ -46,7 +46,7 @@ $(function(){
             $('.userEmail').removeClass('hide');
           }
         }
-        $('.savebtn').click(function(){
+        $('.savebtn').click(function(){//プロフィールの保存
           var myName = $('.name').val();
           var radiobtn = $('input[name=group1]:checked').val();
           var textarea = $('#textarea1').val();
@@ -61,38 +61,17 @@ $(function(){
                 sex: radiobtn,
                 text: textarea,
               });
-
-
-
               var fileName = $("#upfile")[0].files[0].name;//file名
               var image = $("#upfile")[0].files[0];
+              console.log(image);
               var upImageRef = firebase.storage().ref(`/userIcon/${uid}`).child(fileName);
               upImageRef.put(image).then(function(snapshot) {
                 console.log('Uploaded a blob or file!');
-                firebase.database().ref(`/users/${uid}`).update({iconImage:fileName});//ユーザにアイコン名を保存
+                firebase.database().ref(`/users/${uid}`).update({iconImage:fileName}).then(function() {
+                  window.localStorage.setItem('selectedUsers', myName);
+                  location.reload();
+                });//ユーザにアイコン名を保存
               });
-              firebase.storage().ref(`/userIcon/${uid}/${fileName}`).getDownloadURL().then((url) => {
-                $('.mypage-user-icon').css('background-image','url(' + url + ')');
-              }).catch((error) => {
-                // 変更したアイコンがない場合
-                var imagesRef = firebase.storage().ref('dummy.jpg');
-                imagesRef.getDownloadURL().then((url) => {
-                  $('.mypage-user-icon').css('background-image','url(' + url + ')');
-                });
-                var imagesRef = firebase.storage().ref('dummy.jpg');
-                // 初期アイコンを全てにコメントに表示
-                imagesRef.getDownloadURL().then((url) => {
-                cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
-                $('.mypage-user-icon').css('background-image','url(' + url + ')');
-                });
-              });
-
-
-
-
-
-              window.localStorage.setItem('selectedUsers', myName);
-              location.reload();
             }).catch(function(error) {
               // An error happened.
               console.log(error);
@@ -219,10 +198,16 @@ $(function(){
         /**
          *アイコン画面の変更
          */
-        $("#upfile").change(function(){
-          var image = $("#upfile")[0].files[0];
-          $("#upfile").value(image);
-        });
+         $('#upfile').on('change', function (e) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                  $("#file-preview").css('background-image','url(' + e.target.result + ')')
+              }
+              reader.readAsDataURL(e.target.files[0]);
+          });
+
+
+
       }else{
         $(".container").hide();
         $(".material-icons").hide();
