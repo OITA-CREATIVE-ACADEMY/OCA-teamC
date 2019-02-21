@@ -165,7 +165,6 @@ function showIcon(selectedUid,icon) {//アイコン表示関数
        $('.mypage-user-icon').css('background-image','url(' + url + ')');//画像を表示
       });
     }
-
 }
 
 /*

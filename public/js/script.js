@@ -91,10 +91,24 @@ $(function(){
           });
         });
 
-        $('.delete-text').click(function(){//カードの削除
-          var card = $(this).parents(".timeline-card");
-            const itemKey = $(card).data('key');
-            messagesRef.child(itemKey).remove();
+        $('.delete-text').click(function(){//カードの削除とブロック
+          console.log($(this).children().text());
+          if ($(this).children().text() == 'block') {//自分のコメントかどうかの判定
+            console.log($(this).parents(".timeline-card").data('key'));
+            if (confirm("ブロックしても宜しいですか？")) {
+              const block = $(this).parents(".timeline-card").data('key');
+              $(this).parents(".timeline-card").addClass('hide');
+              firebase.database().ref(`users/${user.uid}` + '/blocklist').push({
+                block: block,
+              });
+            }
+          } else {//自分のコメントならば
+            if (confirm("削除しても宜しいですか？")) {
+              var card = $(this).parents(".timeline-card");
+                const itemKey = $(card).data('key');
+                messagesRef.child(itemKey).remove();
+            }
+          }
         });
         /*表示*/
         messagesRef.orderByChild('time').on('child_added', function (snapshot) {//メッセージを追加（リアルタイム）
@@ -194,13 +208,21 @@ function createcard(message,messageKey,formatDate,user,uid) {//カードを作�
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
    if (uid === user.uid) {
-     cloneTask.find('.branch').addClass('alteration');//コメントが自分のものであればクラスを追加
+     cloneTask.find('.delete-icon').text('delete');//コメントが自分のものであればクラスを追加
    }
+   firebase.database().ref(`users/${user.uid}` + '/blocklist').once('value', function(snapshot) {
+     snapshot.forEach(function(childSnapshot) {
+       var childKey = childSnapshot.val().block;
+       console.log(childKey,messageKey);
+       if (messageKey === childKey) {
+         cloneTask.attr('class','hide');
+       }
+     });
+   });
   console.log(messageKey);
-  cloneTask.attr('data-uid',uid);
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
-  /** コメントにアイコンと名前を表示する*/
+  /* コメントにアイコンと名前を表示する*/
   firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot) {
     var displayName = snapshot.val().username;//ユーザー名
     var flug = snapshot.val().iconImage;//ユーザーのアイコン情報
@@ -213,7 +235,6 @@ function createcard(message,messageKey,formatDate,user,uid) {//カードを作�
       var imagesRef = firebase.storage().ref('dummy.jpg');
       // 初期アイコンを全てにコメントに表示
       imagesRef.getDownloadURL().then((url) => {
-        console.log(url);
       cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
       });
     }
