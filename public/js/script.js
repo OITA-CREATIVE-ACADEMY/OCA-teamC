@@ -82,27 +82,16 @@ $(function(){
           $('#modalMain').show();
           $('#btn-list').hide();
         });
-
-        // $('#modal-switch-list').click(function(){
-        //   $('#modalMain').hide();
-        //   $('#btn-list').show();
+        // $('.comment').click(function(){//コメントをfirebaseに保存
+        //     var text = $('#messageInput').val();
+        //     if (text.length <= 250 && text) {
+        //       var time = moment().format('YYYY-MM-DD HH:mm');
+        //       // var uid  = user.uid;
+        //       messagesRef.push({text:text,time:time,uid:uid});
+        //       $('#messageInput').val('');
+        //       $('.modal-close').click();
+        //     }
         // });
-
-        // $('#modal-switch-main').click(function(){
-        //   $('#modalMain').show();
-        //   $('#btn-list').hide();
-        // });
-
-        $('.comment').click(function(){//コメントをfirebaseに保存
-            var text = $('#messageInput').val();
-            if (text.length <= 250 && text) {
-              var time = moment().format('YYYY-MM-DD HH:mm');
-              // var uid  = user.uid;
-              messagesRef.push({text:text,time:time,uid:uid});
-              $('#messageInput').val('');
-              $('.modal-close').click();
-            }
-        });
 
         $('.userSetting').click(function() {//ユーザー設定に飛ぶときの処理
           window.localStorage.setItem('selectedUsers', userName);//ローカルストレージに一時的に保存
@@ -153,14 +142,17 @@ $(function(){
         });
         /*表示*/
         messagesRef.on('child_added', function (snapshot) {//メッセージを追加（リアルタイム）
+          console.log(snapshot);
             var message    = snapshot.val();
             var messageKey = snapshot.key;
             var formatDate = message.time;
+            var button1 = message.button1;
+            var button2 = message.button2;
             console.log(message);
             const uid = message.uid;
             firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot){
               var displayName = snapshot.val().username;
-              var taskcopy = createcard(message,messageKey,formatDate,displayName,user,uid);
+              var taskcopy = createcard(message,messageKey,formatDate,displayName,user,uid,button1,button2);
               taskcopy.appendTo($('#messagesDiv'));
             });
         });
@@ -240,9 +232,13 @@ function writeNewPost(text,itemKey,time) {//編集処理（未実装）
   // updates['/user-posts/' + itemKey] = postData;
   return messagesRef.update(updates);
 }
-
-function createcard(message,messageKey,formatDate,displayName,user,uid) {//カードを作成
+/**
+ * カードを作成
+ */
+function createcard(message,messageKey,formatDate,displayName,user,uid,button1,button2) {
   console.log(formatDate);
+  console.log(button1);
+  console.log(button2);
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
@@ -254,6 +250,11 @@ function createcard(message,messageKey,formatDate,displayName,user,uid) {//カ�
   cloneTask.find('.textMain').text(message.text);
   cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
   cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
+
+  cloneTask.find('.original-btn1').text(button1);//1つ目のボタンの表示
+  cloneTask.find('.original-btn2').text(button2);//1つ目のボタンの表示
+
+
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
     var likecount    = snapshot.numChildren();//どうでも良いねが押された数
     var opacitycount = 1.0 - likecount / 10;//opacityを0.1ずつ変更
