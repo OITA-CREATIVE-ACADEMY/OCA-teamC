@@ -234,8 +234,10 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
   
-  cloneTask.find('.original-btn1').text(button1);
-  cloneTask.find('.original-btn2').text(button2);
+  console.log(cloneTask.find('.original-btn1'));
+  
+  cloneTask.find('.original-btn1').prepend(`${button1}<span class="but1-gooduser"></span>`);//カウントの為Spanタグを追加
+  cloneTask.find('.original-btn2').prepend(`${button2}<span class="but2-gooduser"></span>`);//カウントの為Spanタグを追加
 
 /**
  * ボタンを表示するかの判定
@@ -301,6 +303,39 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
       }
     });
   });
+// =================================================================================
+firebase.database().ref('/tasks/' + messageKey + '/button1-user').on('value', function (snapshot) {//ボタン
+  var likecount    = snapshot.numChildren();//どうでも良いねが押された数
+  cloneTask.find('.but1-gooduser').text(likecount);
+/**
+ * どうでもいいねボタンのON・Off判定
+ */
+firebase.database().ref('/tasks/' + messageKey + '/button1-user/' + user.uid).once('value', function (snapshot) {//ボタン
+    var likeuser = snapshot.numChildren();
+    if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
+      cloneTask.find('.original-btn1').addClass('changed');//居ればクラス追加
+    } else {
+      cloneTask.find('.original-btn1').removeClass('changed');//居なければ削除
+    }
+  });
+});
+// ===========================================================================================
+firebase.database().ref('/tasks/' + messageKey + '/button2-user').on('value', function (snapshot) {//ボタン
+  var likecount    = snapshot.numChildren();//どうでも良いねが押された数
+  cloneTask.find('.but2-gooduser').text(likecount);
+/**
+ * どうでもいいねボタンのON・Off判定
+ */
+firebase.database().ref('/tasks/' + messageKey + '/button2-user/' + user.uid).once('value', function (snapshot) {//ボタン
+    var likeuser = snapshot.numChildren();
+    if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
+      cloneTask.find('.original-btn2').addClass('changed');//居ればクラス追加
+    } else {
+      cloneTask.find('.original-btn2').removeClass('changed');//居なければ削除
+    }
+  });
+});
+
 
   cloneTask.find('.now').text(formatDate);//入力された時間の表示
 
