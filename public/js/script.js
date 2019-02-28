@@ -11,21 +11,16 @@ $(function(){
         var count = snapshot.numChildren();
         var icon  = snapshot.val().iconImage;
           sideIcon(user,icon,uid);
-          if (count = 0) {//初ログインの人のみ登録
-            var sex = 'other';
-            var iconImage = '画像なし';
-            writeUserData(uid,userName,email,sex,iconImage);//ユーザーの情報を登録
-          }
         });
         $('.modal').modal();//モーダルを使う為の記述
         $('.sidenav').sidenav();//サイドバーを使う為の記述
         $('#messageInput,#text1').characterCounter();//文字数カウントの処理
         $('.side-user-name').text(userName);//サイドバーのユーザー名
-        $('#messageInput').keypress(function (e) {//enterでも反応させる
-          if (e.keyCode == 13) {
-            $('.comment').click();
-          }
-        });
+        // $('#messageInput').keypress(function (e) {//enterでも反応させる
+        //   if (e.keyCode == 13) {
+        //     $('.comment').click();
+        //   }
+        // });
         $('#modal-btn').click(function(){//モーダル展開
           $('.comment').show();
           $('.edit-btn').hide();
@@ -61,7 +56,7 @@ $(function(){
           var otherUsers = firebase.database().ref('/users/' + itemKey);
           otherUsers.once('value').then(function(snapshot){
             var Name  = snapshot.val().username;
-            window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
+            // window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
             window.localStorage.setItem('selectedUid', itemKey);
             window.location.href = "mypage/index.html";
           });
@@ -130,36 +125,37 @@ $(function(){
         });
 
       }else{//ログインしているユーザーが居なければ
-        $(".container").hide();
-        $(".material-icons").hide();
-        // No user is signed in.
-        // FirebaseUIインスタンス初期化
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        // FirebaseUIの各種設定
-        var uiConfig = {
-          callbacks: {
-            signInSuccess: function(currentUser, credential, redirectUrl) {
-              // サインイン成功時のコールバック関数
-              // 戻り値で自動的にリダイレクトするかどうかを指定
-              return true;
-            },
-            uiShown: function() {
-              // FirebaseUIウィジェット描画完了時のコールバック関数
-              // 読込中で表示しているローダー要素を消す
-            }
-          },
-          // リダイレクトではなく、ポップアップでサインインフローを表示
-          signInFlow: 'popup',
-          signInSuccessUrl: 'index.html',
-          signInOptions: [
-            // サポートするプロバイダ(メールアドレス)を指定
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          ],
-          // Terms of service url.(サービス利用規約ページの)
-          tosUrl: '<your-tos-url>'
-        };
-          // FirebaseUI描画開始
-          ui.start('#firebaseui-auth-container', uiConfig);
+        location.href = 'index3.html';
+        // $(".container").hide();
+        // $(".material-icons").hide();
+        // // No user is signed in.
+        // // FirebaseUIインスタンス初期化
+        // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // // FirebaseUIの各種設定
+        // var uiConfig = {
+        //   callbacks: {
+        //     signInSuccess: function(currentUser, credential, redirectUrl) {
+        //       // サインイン成功時のコールバック関数
+        //       // 戻り値で自動的にリダイレクトするかどうかを指定
+        //       return true;
+        //     },
+        //     uiShown: function() {
+        //       // FirebaseUIウィジェット描画完了時のコールバック関数
+        //       // 読込中で表示しているローダー要素を消す
+        //     }
+        //   },
+        //   // リダイレクトではなく、ポップアップでサインインフローを表示
+        //   signInFlow: 'popup',
+        //   signInSuccessUrl: 'index.html',
+        //   signInOptions: [
+        //     // サポートするプロバイダ(メールアドレス)を指定
+        //     firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        //   ],
+        //   // Terms of service url.(サービス利用規約ページの)
+        //   tosUrl: '<your-tos-url>'
+        // };
+        //   // FirebaseUI描画開始
+        //   ui.start('#firebaseui-auth-container', uiConfig);
       }
     });
 });
@@ -180,7 +176,9 @@ function sideIcon(user,icon) {//自分のアイコン表示
       $('.side-user-icon').css('background-image','url(' + url + ')');//画像を表示
     });
   } else {//画像がなければ
-    $('.side-user-icon').css('background-image','url(' + url + ')');//画像未設定の場合の画像を表示
+    firebase.storage().ref('dummy.jpg').getDownloadURL().then((url) => {//自分の画像をダウンロード
+      $('.side-user-icon').css('background-image','url(' + url + ')');//画像を表示
+    });
   }
 }
 
@@ -219,11 +217,13 @@ function createcard(message,messageKey,formatDate,user,uid) {//カードを作�
        }
      });
    });
-  console.log(messageKey);
-  cloneTask.find('.textMain').text(message.text);
+  // console.log(messageKey);
+  var message1 = message.text.replace(/\r?\n/g, '<br>');
+  cloneTask.find('.textMain').html(message1);
   cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
   /* コメントにアイコンと名前を表示する*/
   firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot) {
+    console.log(uid);
     var displayName = snapshot.val().username;//ユーザー名
     var flug = snapshot.val().iconImage;//ユーザーのアイコン情報
     cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
@@ -265,13 +265,9 @@ function createcard(message,messageKey,formatDate,user,uid) {//カードを作�
  */
 function logout(){
     if(confirm("ログアウトしても宜しいですか？")){
+      window.localStorage.removeItem('selectedUid');
       alert("ログアウトします");
-      firebase.auth().signOut().then(function() {
-        $(".container").hide();
-        $(".material-icons").hide();
-        window.localStorage.removeItem('selectedUid');
-        location.href = 'index.html';
-      }).catch(function(error) {
+      firebase.auth().signOut().catch(function(error) {
         console.log(error);
         console.log("ログアウトに失敗しました");
       });

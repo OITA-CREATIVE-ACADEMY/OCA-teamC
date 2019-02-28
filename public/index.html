@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>どうでもいいね</title>
     <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="css/dropdown.css">
   </head>
   <body>
-      <div id="firebaseui-auth-container"></div><!-- ログイン画面の表示 -->
+  <!-- <div id="firebaseui-auth-container"></div> -->
     <header>
       <!-- Sidenav -->
       <div class="container">
@@ -47,7 +47,7 @@
       </div>
     </header>
     <main>
-      <div class="container">
+  <div class="container">
   <div id="messagesDiv" class="col s12"></div><!-- カードが入る--->
     <div id="cardDamy" style="display: none">
       <div class="card timeline-card text-item" data-key="">
@@ -73,13 +73,13 @@
         </div>
       </div>
     </div>
-
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
       <div id="modalMain">
         <div class="modal-content">
             <div class="input-field">
-              <input id="messageInput" type="text" class="validate" data-length="250">
+              <!-- <input id="messageInput" type="text" class="validate" data-length="250"> -->
+              <textarea id="messageInput" type="text" class="materialize-textarea validate" data-length="250"></textarea>
           	  <label for="messageInput">テキストを入力</label>
             </div>
           </div>
@@ -96,8 +96,8 @@
             <div class="col s5">
               <a id="modal-switch" class="waves-effect waves-light btn">ボタンを設定できます</a>
             </div>
-            <button type="button" class="comment btn col s2">Add</button>
-            <button href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">Agree</button>
+            <button type="button" class="comment btn col s2">追加</button>
+            <button href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">戻る</button>
           </div>
       </div>
       <div class id="btn-list">
@@ -124,17 +124,13 @@
        <span class="now"></span>
       </div>
   </div>
-
     <div class="fixed-tweet-btn">
       <a id="modal-btn" class="btn-tweet waves-effect waves-light btn-floating btn-large">
         <i class="large material-icons modal-trigger" href="#modal1">mode_edit</i>
       </a>
     </div>
   </div>
-
 </main>
-
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="lib/materialize/js/materialize.min.js"></script>
     <script src="lib/moment.min.js"></script>

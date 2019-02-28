@@ -1,0 +1,10 @@
+#icon {
+  height: 125px;
+  width: 125px;
+}
+#errorMessage {
+  color: red;
+}
+.line {
+  margin-top: 30px;
+}
