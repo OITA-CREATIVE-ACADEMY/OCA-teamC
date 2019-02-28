@@ -242,10 +242,10 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
 /**
  * ボタンを表示するかの判定
  */
-  if((button1=="")&&(button2=="")){
+  if($.isEmptyObject(button1)&&$.isEmptyObject(button2)){
     cloneTask.find('.original-btn1').remove();
     cloneTask.find('.original-btn2').remove();
-  }else if(button2==""){
+  }else if($.isEmptyObject(button2)){
     cloneTask.find('.original-btn2').remove();
   }
 /**
@@ -286,7 +286,7 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
 
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
     var likecount    = snapshot.numChildren();//どうでも良いねが押された数
-    var opacitycount = 1.0 - likecount / 10;//opacityを0.1ずつ変更
+    var opacitycount = 1.0 - likecount / 7;//opacityを0.1ずつ変更
     cloneTask.find('.gooduser').text(likecount);
     cloneTask.find('.card-body').css({
         opacity: opacitycount,
