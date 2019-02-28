@@ -50,9 +50,11 @@ $(function(){
         // var uid  = user.uid;
         const addText1 = $('.decide-button').eq(0).text();
         const addText2 = $('.decide-button').eq(1).text();
+
         messagesRef.push({text:text,time:time,uid:uid,button1:addText1,button2:addText2});
         $('#messageInput').val('');
         $('.modal-close').click();
+
       }
     });
   });
