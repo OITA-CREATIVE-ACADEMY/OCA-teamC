@@ -13,11 +13,6 @@ $(function(){
         $('#textarea1').val(text);
           $('#' + sex).prop("checked", true);
           userdata(user,icon,uid);
-          if (count = 0) {//初ログインの人のみ登録
-            var sex = 'other';
-            var iconImage = '画像なし';
-            writeUserData(uid,userName,email,sex,iconImage);//ユーザーの情報を登録
-          }
         });
         console.log(user);
         $('.sidenav').sidenav();
@@ -75,37 +70,7 @@ $(function(){
           });
 
       }else{
-        $(".container").hide();
-        $(".material-icons").hide();
-        // No user is signed in.
-        // FirebaseUIインスタンス初期化
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-        // FirebaseUIの各種設定
-        var uiConfig = {
-          callbacks: {
-            signInSuccess: function(currentUser, credential, redirectUrl) {
-              // サインイン成功時のコールバック関数
-              // 戻り値で自動的にリダイレクトするかどうかを指定
-              return true;
-            },
-            uiShown: function() {
-              // FirebaseUIウィジェット描画完了時のコールバック関数
-              // 読込中で表示しているローダー要素を消す
-            }
-          },
-          // リダイレクトではなく、ポップアップでサインインフローを表示
-          signInFlow: 'popup',
-          signInSuccessUrl: 'index.html',
-          signInOptions: [
-            // サポートするプロバイダ(メールアドレス)を指定
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          ],
-          // Terms of service url.(サービス利用規約ページの)
-          tosUrl: '<your-tos-url>'
-        };
-          // FirebaseUI描画開始
-          ui.start('#firebaseui-auth-container', uiConfig);
+        location.href = '../index3.html';
       }
     });
 });
@@ -128,7 +93,9 @@ function userdata(user,icon) {
       $('.side-user-icon').css('background-image','url(' + url + ')');//画像を表示
     });
   } else {//画像がなければ
-    $('.side-user-icon').css('background-image','url(' + url + ')');//画像未設定の場合の画像を表示
+    firebase.storage().ref('dummy.jpg').getDownloadURL().then((url) => {//自分の画像をダウンロード
+      $('.side-user-icon').css('background-image','url(' + url + ')');//画像を表示
+    });
   }
   if (selectedUid !== user.uid) {//自分以外のユーザーだったら
     $('.myName').addClass('hide');//編集可能なエリアを非表示
@@ -136,6 +103,7 @@ function userdata(user,icon) {
     $('.otherName').removeClass('hide');//編集不可能なエリアを表示
     firebase.database().ref('users/' + selectedUid).on('value', function (snapshot) {//ユーザー情報の判定
       var snapshot = snapshot.val();
+      console.log(snapshot);
       var name = snapshot.username;//ユーザー名
       var sex  = snapshot.sex;//ユーザーの性別
       var text = snapshot.text;//自己紹介文
@@ -172,14 +140,9 @@ function showIcon(selectedUid,icon) {//アイコン表示関数
  */
 function logout(){
     if(confirm("ログアウトしても宜しいですか？")){
+      window.localStorage.removeItem('selectedUid');
       alert("ログアウトします");
-      firebase.auth().signOut().then(function() {
-        $(".container").hide();
-        $(".material-icons").hide();
-        window.localStorage.removeItem('selectedUsers');
-        window.localStorage.removeItem('selectedUid');
-        location.href = 'index.html';
-      }).catch(function(error) {
+      firebase.auth().signOut().catch(function(error) {
         console.log(error);
         console.log("ログアウトに失敗しました");
       });
