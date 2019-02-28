@@ -33,17 +33,6 @@ $(function(){
           $('#btn-list').show();
         });
 
-        $('.comment').click(function(){//コメントをfirebaseに保存
-            var text = $('#messageInput').val();
-            if (text.length <= 250 && text) {
-              var time = moment().format('YYYY-MM-DD HH:mm');
-              // var uid  = user.uid;
-              messagesRef.push({text:text,time:time,uid:uid});
-              $('#messageInput').val('');
-              $('.modal-close').click();
-            }
-        });
-
         $('.userSetting').click(function() {//ユーザー設定に飛ぶときの処理
           window.localStorage.setItem('selectedUsers', userName);//ローカルストレージに一時的に保存
           window.localStorage.setItem('selectedUid', user.uid);
@@ -61,6 +50,27 @@ $(function(){
             window.location.href = "mypage/index.html";
           });
         });
+
+        $('.original-btn1').click(function() {//どうでも良いねボタンの処理
+          var itemKey = $(this).parents(".timeline-card").data('key');
+          console.log($(this).hasClass('changed'));
+          if ($(this).hasClass('changed')) {//いいねを押して居たら削除
+            firebase.database().ref('/tasks/' + itemKey + `/button1-user/${user.uid}`).remove();
+          } else {//押していなければ追加
+            writeButtonData1(itemKey,user);
+          }
+        });
+
+        $('.original-btn2').click(function() {//どうでも良いねボタンの処理
+          var itemKey = $(this).parents(".timeline-card").data('key');
+          console.log($(this).hasClass('changed'));
+          if ($(this).hasClass('changed')) {//いいねを押して居たら削除
+            firebase.database().ref('/tasks/' + itemKey + `/button2-user/${user.uid}`).remove();
+          } else {//押していなければ追加
+            writeButtonData2(itemKey,user);
+          }
+        });
+
 
         $('.original-btn3').click(function() {//どうでも良いねボタンの処理
           var itemKey = $(this).parents(".timeline-card").data('key');
@@ -108,10 +118,14 @@ $(function(){
         /*表示*/
         messagesRef.orderByChild('time').on('child_added', function (snapshot) {//メッセージを追加（リアルタイム）
             var message    = snapshot.val();
+            // console.log(message);
             var messageKey = snapshot.key;
             var formatDate = message.time;
+            var button1 = message.button1;
+            var button2 = message.button2;
             const uid = message.uid;
-            var taskcopy = createcard(message,messageKey,formatDate,user,uid);
+            var taskcopy = createcard(message,messageKey,formatDate,user,uid,button1,button2);
+            // console.log(taskcopy);
             taskcopy.prependTo($('#messagesDiv'));
         });
         messagesRef.on('child_removed', function (snapshot) {//メッセージを削除（リアルタイム）
@@ -182,6 +196,18 @@ function sideIcon(user,icon) {//自分のアイコン表示
   }
 }
 
+function writeButtonData1(itemKey,user) {//ボタン１を押したuserをデータに保存
+  firebase.database().ref('/tasks/' + itemKey + `/button1-user/${user.uid}`).set({
+    good: user.displayName,
+  });
+}
+
+function writeButtonData2(itemKey,user) {//ボタン２を押したuserをデータに保存
+  firebase.database().ref('/tasks/' + itemKey + `/button2-user/${user.uid}`).set({
+    good: user.displayName,
+  });
+}
+
 function writeButtonData(itemKey,user) {//どうでも良いねボタンを押したuserをデータに保存
   firebase.database().ref('/tasks/' + itemKey + `/users/${user.uid}`).set({
     good: user.displayName,
@@ -201,17 +227,35 @@ function writeNewPost(text,itemKey,time) {//編集処理（未実装）
   return messagesRef.update(updates);
 }
 
-function createcard(message,messageKey,formatDate,user,uid) {//カードを作成
+function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//カードを作成
   var cloneTask = $('#cardDamy').find('div.card').clone(true);
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
-   if (uid === user.uid) {
+
+  console.log(cloneTask.find('.original-btn1'));
+
+  cloneTask.find('.original-btn1').prepend(`${button1}<span class="but1-gooduser"></span>`);//カウントの為Spanタグを追加
+  cloneTask.find('.original-btn2').prepend(`${button2}<span class="but2-gooduser"></span>`);//カウントの為Spanタグを追加
+
+/**
+ * ボタンを表示するかの判定
+ */
+  if($.isEmptyObject(button1)&&$.isEmptyObject(button2)){
+    cloneTask.find('.original-btn1').remove();
+    cloneTask.find('.original-btn2').remove();
+  }else if($.isEmptyObject(button2)){
+    cloneTask.find('.original-btn2').remove();
+  }
+/**
+ * 削除orブロックの判定
+ */
+  if (uid === user.uid) {
      cloneTask.find('.delete-icon').text('delete');//コメントが自分のものであればクラスを追加
    }
    firebase.database().ref(`users/${user.uid}` + '/blocklist').once('value', function(snapshot) {
      snapshot.forEach(function(childSnapshot) {
        var childKey = childSnapshot.val().block;
-       console.log(childKey,messageKey);
+      //  console.log(childKey,messageKey);
        if (messageKey === childKey) {
          cloneTask.attr('class','hide');
        }
@@ -242,12 +286,15 @@ function createcard(message,messageKey,formatDate,user,uid) {//カードを作�
 
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
     var likecount    = snapshot.numChildren();//どうでも良いねが押された数
-    var opacitycount = 1.0 - likecount / 10;//opacityを0.1ずつ変更
+    var opacitycount = 1.0 - likecount / 7;//opacityを0.1ずつ変更
     cloneTask.find('.gooduser').text(likecount);
     cloneTask.find('.card-body').css({
         opacity: opacitycount,
     });
-    firebase.database().ref('/tasks/' + messageKey + '/users/' + user.uid).once('value', function (snapshot) {//ボタン
+  /**
+   * どうでもいいねボタンのON・Off判定
+   */
+  firebase.database().ref('/tasks/' + messageKey + '/users/' + user.uid).once('value', function (snapshot) {//ボタン
       var likeuser = snapshot.numChildren();
       if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
         cloneTask.find('.like').addClass('changed');//居ればクラス追加
@@ -256,6 +303,42 @@ function createcard(message,messageKey,formatDate,user,uid) {//カードを作�
       }
     });
   });
+// =================================================================================
+firebase.database().ref('/tasks/' + messageKey + '/button1-user').on('value', function (snapshot) {//ボタン
+  console.log('button3');
+  var likecount    = snapshot.numChildren();//どうでも良いねが押された数
+  cloneTask.find('.but1-gooduser').text(likecount);
+/**
+ * どうでもいいねボタンのON・Off判定
+ */
+firebase.database().ref('/tasks/' + messageKey + '/button1-user/' + user.uid).once('value', function (snapshot) {//ボタン
+    var likeuser = snapshot.numChildren();
+    if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
+      cloneTask.find('.original-btn1').addClass('changed');//居ればクラス追加
+    } else {
+      cloneTask.find('.original-btn1').removeClass('changed');//居なければ削除
+    }
+  });
+});
+// ===========================================================================================
+firebase.database().ref('/tasks/' + messageKey + '/button2-user').on('value', function (snapshot) {//ボタン
+  console.log('button2');
+  var likecount    = snapshot.numChildren();//どうでも良いねが押された数
+  cloneTask.find('.but2-gooduser').text(likecount);
+/**
+ * どうでもいいねボタンのON・Off判定
+ */
+firebase.database().ref('/tasks/' + messageKey + '/button2-user/' + user.uid).once('value', function (snapshot) {//ボタン
+    var likeuser = snapshot.numChildren();
+    if (likeuser) {//ボタンを押したユーザーの中に自分がいるかを判定
+      cloneTask.find('.original-btn2').addClass('changed');//居ればクラス追加
+    } else {
+      cloneTask.find('.original-btn2').removeClass('changed');//居なければ削除
+    }
+  });
+});
+
+
   cloneTask.find('.now').text(formatDate);//入力された時間の表示
 
   return cloneTask;

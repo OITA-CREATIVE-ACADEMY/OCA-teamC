@@ -24,6 +24,7 @@
     </script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/button.css">
   </head>
   <body>
   <!-- <div id="firebaseui-auth-container"></div> -->
@@ -64,8 +65,8 @@
           </div>
           <div class="row original-btn">
              <div class="right-align col s12 l9 offset-l3">
-               <button class="original-btn1 waves-effect waves-light btn-small">ダミーボタン</button>
-               <button class="original-btn2 waves-effect waves-light btn-small">ダミーボタン</button>
+               <button class="original-btn1 waves-effect waves-light btn-small"></button>
+               <button class="original-btn2 waves-effect waves-light btn-small"></button>
                <button class="original-btn3 waves-effect waves-light btn-small like">どうでもいいね <span class="gooduser"></span></button>
              </div>
           </div>
@@ -81,6 +82,8 @@
               <!-- <input id="messageInput" type="text" class="validate" data-length="250"> -->
               <textarea id="messageInput" type="text" class="materialize-textarea validate" data-length="250"></textarea>
           	  <label for="messageInput">テキストを入力</label>
+              <button class="waves-effect waves-light btn add-button">１つ目のボタン</button>
+              <button class="waves-effect waves-light btn add-button">２つ目のボタン</button>
             </div>
           </div>
           <div class="modal-footer row">
@@ -93,8 +96,8 @@
                 <!-- On -->
               </label>
             </div>
-            <div class="col s5">
-              <a id="modal-switch" class="waves-effect waves-light btn">ボタンを設定できます</a>
+            <div class="nav col s5">
+              <a id="modal-switch-list" class="waves-effect waves-light btn">ボタンを設定できます</a>
             </div>
             <button type="button" class="comment btn col s2">追加</button>
             <button href="#!" class="btn modal-close waves-effect waves-green btn-flat col s2">戻る</button>
@@ -102,7 +105,6 @@
       </div>
       <div class id="btn-list">
         <div class="modal-content">
-          <form>
             <div class="row">
               <div class="input-field col s12">
                 <input id="text1" type="text" data-length="6" class="validate">
@@ -110,16 +112,17 @@
               </div>
             </div>
             <div class="row modal-add-list">
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">それな</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">マジ卍</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">普通に犬派</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">朝はパン</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">猫派だけど？</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">卵かけご飯</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">拳で</button></div>
-              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn">スマブラ</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">賛成</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">反対</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">わかる</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">わからない</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">悪い</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">悪くない</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">拳で</button></div>
+              <div class="col s12 m6 l3"><button class="waves-effect waves-light btn button-color">スマブラ</button></div>
+
+              <div class="col s12 m6 l3"><a id="modal-switch-main" class="waves-effect waves-light btn">コメントに戻る</a></div>
             </div>
-          </form>
         </div>
        <span class="now"></span>
       </div>
@@ -135,5 +138,6 @@
     <script src="lib/materialize/js/materialize.min.js"></script>
     <script src="lib/moment.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/button.js"></script>
   </body>
 </html>
