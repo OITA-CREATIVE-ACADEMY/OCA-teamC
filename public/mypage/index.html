@@ -129,11 +129,36 @@
           </form>
         </div>
       </div>
+
+      <!-- 変更ページ -->
+      <div class="pass">
+
+      <h2>メールアドレス変更</h2>
+      <p>新メールアドレス  <input type='text' id='mail2' /></p>
+      <p>パスワード    <input type='password' id='pass1' />
+        <input type='button' id='mailChgExe' value=' 実行 ' /></p>
+        ステータス： <nobr id='stat'></nobr>
+
+      
+
+
+
+
+ </div><!-- pass -->
+
+
+
+
+
+
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="../lib/materialize/js/materialize.min.js"></script>
     <script src="../lib/moment.min.js"></script>
+    
     <script src="../js/mypage.js"></script>
+    <script src="../js/email_update.js"></script>
+    
     <!-- <script>
         // ファイル選択フォームに変更時に、フォームの値をコンソールログに表示する
         $("#upfile").change(function(){
@@ -143,6 +168,10 @@
         imagesRef.put(val).then(function(snapshot) {
         console.log('Uploaded a blob or file!');
 });
+
     </script> -->
+    <!-- メールアドレスとパスワードの変更 -->
+
+
   </body>
 </html>
