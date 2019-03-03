@@ -45,7 +45,7 @@ $(function(){
     });
     $('.comment').click(function(){//コメントをfirebaseに保存
       var text = $('#messageInput').val();
-      if (text.length <= 250 && text) {
+      if (text.length <= 366 && text) {
         var time = moment().format('YYYY-MM-DD HH:mm');
         // var uid  = user.uid;
         const addText1 = $('.decide-button').eq(0).text();
@@ -53,9 +53,14 @@ $(function(){
 
         messagesRef.push({text:text,time:time,uid:uid,button1:addText1,button2:addText2});
         $('#messageInput').val('');
-        $('.modal-close').click();
-
+        $('.character-counter').text('');
       }
     });
+    $('.modal-close').click(function(){
+      $('#messageInput').val('');
+      $('.add-button').css("display","none");
+      $('.character-counter').text('');
+    });
+
   });
 });
