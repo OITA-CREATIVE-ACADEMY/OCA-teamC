@@ -12,7 +12,7 @@ $(function(){
         var icon  = snapshot.iconImage;
         $('#textarea1').val(text);
           $('#' + sex).prop("checked", true);
-          userdata(user,icon,uid);
+          userdata(user,icon);
         });
         console.log(user);
         $('.sidenav').sidenav();
@@ -20,6 +20,7 @@ $(function(){
         $('.side-user-name').text(userName);//サイドバーのユーザー名
         $('.name').val(userName);//設定画面のユーザー名
         $('#email').val(email);//設定画面のemail
+        $('.side-user-id').text('@' + uid);//サイドバーのIDの表示
         $('.savebtn').click(function(){//プロフィールの保存
           var myName = $('.name').val();
           var radiobtn = $('input[name=group1]:checked').val();

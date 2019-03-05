@@ -28,26 +28,28 @@
   </head>
   <body>
   <!-- <div id="firebaseui-auth-container"></div> -->
-    <header>
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <div class="wrapper">
+      <li>
+        <a class="userSetting">
+          <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
+          <div class="side-user-name"></div>
+          <div class="side-user-id"></div>
+        </a>
+      </li>
+      <li class="select"><a href="#!">ホーム</a></li>
+      <li><a class="userSetting">ユーザー設定</a></li>
+      <li id="signout"><a onclick="logout()">ログアウト</a></li>
+    </div>
+  </ul>
+    <header class="hide-on-large-only">
       <div class="container">
-        <ul id="slide-out" class="sidenav sidenav-fixed">
-          <div class="wrapper">
-            <li>
-              <a class="userSetting">
-                <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
-                <div class="side-user-name"></div>
-              </a>
-            </li>
-            <li class="select"><a href="#!">ホーム</a></li>
-            <li><a class="userSetting">ユーザー設定</a></li>
-            <li id="signout"><a onclick="logout()">ログアウト</a></li>
-          </div>
-        </ul>
+
         <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-btn hide-on-large-only"><i class="material-icons">menu</i></a>
       </div>
     </header>
     <!-- Sidenav -->
-    <ul id="slide-out" class="sidenav sidenav-fixed">
+    <!-- <ul id="slide-out" class="sidenav sidenav-fixed">
       <div class="wrapper">
         <li>
           <a href="mypage/index.html">
@@ -60,7 +62,7 @@
         <li><a href="mypage/index.html"><i class="material-icons">person</i>ユーザー設定</a></li>
         <li id="signout"><a onclick="logout()"><i class="material-icons">exit_to_app</i>ログアウト</a></li>
       </div>
-    </ul>
+    </ul> -->
     <main>
   <div class="container">
   <div id="messagesDiv" class="col s12"></div><!-- カードが入る--->

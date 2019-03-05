@@ -25,19 +25,20 @@
   </head>
   <body>
     <!-- <div id="firebaseui-auth-container"></div> -->
-    <header>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li>
+        <a href="../index.html">
+          <div class="side-user-icon z-depth-1"></div>
+          <div class="side-user-name"></div>
+          <div class="side-user-id"></div>
+        </a>
+      </li>
+      <li><a href="../index.html">ホーム</a></li>
+      <li class="select"><a href="#!">ユーザー設定</a></li>
+      <li id="signout"><a onclick="logout()">ログアウト</a></li>
+    </ul>
+    <header class="hide-on-large-only">
       <div class="container">
-        <ul id="slide-out" class="sidenav sidenav-fixed">
-          <li>
-            <a href="../index.html">
-              <div class="side-user-icon z-depth-1"></div>
-              <div class="side-user-name"></div>
-            </a>
-          </li>
-          <li><a href="../index.html">ホーム</a></li>
-          <li class="select"><a href="#!">ユーザー設定</a></li>
-          <li id="signout"><a onclick="logout()">ログアウト</a></li>
-        </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-btn hide-on-large-only"><i class="material-icons">menu</i></a>
       </div>
     </header>
