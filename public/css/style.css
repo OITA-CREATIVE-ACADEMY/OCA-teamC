@@ -190,4 +190,8 @@ div.wrapper {
    position: fixed;
    bottom: 10vh;
  }
- 
+
+ .btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+  background-color:initial;
+
+}
