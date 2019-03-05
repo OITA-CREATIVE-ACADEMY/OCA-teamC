@@ -1,5 +1,5 @@
 $(function(){
-    $('#mailChgExe').on('click', function(){
+    $('.savebtn').on('click', function(){
     
     // ログインしているユーザを取得する
     firebase.auth().onAuthStateChanged(function(user) {
@@ -34,8 +34,8 @@ $(function(){
             // });
           }
 
-        $('#mail2').text;
-        console.log($('#mail2').text);
+        $('#email').text();
+        console.log($('#email').text());
 
         // user.updateEmail("user@example.com").then(function() {
         //     // Update successful.
