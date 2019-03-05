@@ -4,7 +4,7 @@ $(function() {
     if ($('#name').val().length <= 12 && $('#name').val()) {
       signUp();
     }else{
-      //error
+      message('nameError');
     }
   });
   $('#signIn').click(function() {
@@ -40,13 +40,13 @@ function signUp() {//新規登録の処理
           } else {
             console.log(error)
             var error = error.code;
-            $('#errorMessage').text(error);
+            message(error);
           }
         });
       }).catch(function(error) {
         console.log(error)
         var error = error.code;
-        $('#errorMessage').text(error);
+        message(error);
       });
   }
 
@@ -62,8 +62,19 @@ function signIn() {//ログインの処理
     });
 }
 
-function function_name(argument) {
-  'auth/invalid-email'
-  'auth/weak-password'
-  'auth/email-already-in-use'
+function message(error) {
+  switch (error) {
+    case 'auth/invalid-email':
+      $('#errorMessage').text('不正なメールアドレスです');
+      break;
+    case 'auth/weak-password':
+      $('#errorMessage').text('不正なパスワードです');
+      break;
+    case 'auth/email-already-in-use':
+      $('#errorMessage').text('既に使用されているメールアドレスです');
+      break;
+    case 'nameError':
+    $('#errorMessage').text('その名前は設定出来ません');
+      break;
+  }
 }

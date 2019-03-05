@@ -58,7 +58,7 @@ $(function(){
           });
         });
 
-        /*
+        /**
          *アイコン画面の変更
          */
          $('#upfile').on('change', function (e) {
@@ -135,7 +135,7 @@ function showIcon(selectedUid,icon) {//アイコン表示関数
     }
 }
 
-/*
+/**
  * ログアウト処理
  */
 function logout(){

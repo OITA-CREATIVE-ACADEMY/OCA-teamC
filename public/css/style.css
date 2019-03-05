@@ -28,6 +28,10 @@ main, footer {
 .sidenav {
     width: 220px;
 }
+.sidenav-btn {
+    position: fixed;
+    z-index: 10;
+}
 .select{
   background-color: #eee;
 }
