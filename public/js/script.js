@@ -34,7 +34,6 @@ $(function(){
         });
 
         $('.userSetting').click(function() {//ユーザー設定に飛ぶときの処理
-          window.localStorage.setItem('selectedUsers', userName);//ローカルストレージに一時的に保存
           window.localStorage.setItem('selectedUid', user.uid);
           window.location.href = "mypage/index.html";
         });
@@ -227,8 +226,10 @@ function writeNewPost(text,itemKey,time) {//編集処理（未実装）
   return messagesRef.update(updates);
 }
 
+
 function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//カードを作成
-  var cloneTask = $('#cardDamy').find('div.card').clone(true);
+  var cloneTask = $('#cardDamy').find('div.timeline-card').clone(true);
+  console.log(cloneTask);
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
 
@@ -343,7 +344,7 @@ firebase.database().ref('/tasks/' + messageKey + '/button2-user/' + user.uid).on
 
   return cloneTask;
 }
-/*
+/**
  * ログアウト処理
  */
 function logout(){
