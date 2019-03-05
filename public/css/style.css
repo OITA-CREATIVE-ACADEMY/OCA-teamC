@@ -1,17 +1,51 @@
+header {
+    background: rgba(255, 100, 100, 1);
+    position: fixed;
+    height: 40px;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+.sidenav-btn {
+  color: #fff;
+  height: 100%;
+}
+.sidenav-btn i {
+  font-size: 2rem;
+  line-height: 40px;
+}
+.container {
+  width: calc(100% - 40px);
+}
 .textMain {
+  margin-bottom: 15px;
   word-break: break-all;
 }
 .text-right {
   text-align: right;
 }
-.now {
-    font-size: 80%;
-    opacity: 0.7;
+.timeline-date {
+  color: rgba(0, 0, 0, .7);
+  font-size: 12px;
+  line-height: 21px;
+}
+.timeline-delet-btn {
+  bottom: 10px;
+  height: 21px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+.timeline-delet-btn i {
+  color: rgba(255, 100, 100, 1) !important;
+  font-size: 21px;
 }
 .card-body {
-	padding: 0.7em;
+	padding: 10px 0;
 }
 main, footer {
+  padding-top: 40px;
   padding-left: 220px;
 }
 
@@ -27,30 +61,42 @@ main, footer {
 }
 .sidenav {
     width: 220px;
+    background: rgba(255, 100, 100, 1);
+    box-shadow: none;
 }
-.select{
-  background-color: #eee;
+.original-btn {
+  margin-bottom: 5px;
 }
-.original-btn{
-  margin-bottom: 0;
-}
-
 .original-btn1, .original-btn2, .original-btn3 {
   background-color: #fff;
-  border: 2px solid #26a69a;
-  border-radius: 18px;
-  color: #333;
-  line-height: 32px;
-  margin-top: 1rem;
-
+  box-shadow: none;
+  border: 1px solid rgba(255, 100, 100, 1);
+  border-radius: 14px;
+  color: rgba(255, 100, 100, 1);
+  cursor: pointer;
+  font-size: 12px;
+  height: 23px;
+  line-height: 21px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  overflow: hidden;
   padding: 0 10px;
 }
-/* .original-btn1:hover, .original-btn2:hover, .original-btn3:hover {
+@media screen and (max-width : 480px) {
+  .original-btn1, .original-btn2, .original-btn3 {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+.original-btn1:focus, .original-btn2:focus, .original-btn3:focus {
   background-color: #fff;
-} */
+}
 .changed {
-  color: blue;
-  /* background-color: red; */
+  background: rgba(255, 100, 100, 1) !important;
+  color: #fff;
+}
+.original-btn button:first-child {
+  margin-left: 0;
 }
 #otherName {
   color: inherit;
@@ -62,24 +108,33 @@ main, footer {
   TEAMC-8
 ********************/
 .fixed-tweet-btn {
+  bottom: 1rem;
   position: fixed;
-  right: 0;
-  top: 0;
+  right: 1rem;
   z-index: 997;
 }
 .btn-tweet {
-  border-radius: 0 0 0 2px;
+  background: rgba(255, 100, 100, 1);
+  height: 45px;
+  width: 45px;
+}
+.btn-tweet:hover {
+  background: rgba(255, 100, 100, 1);
 }
 .btn-tweet i {
-  background: #fff;
-  color: #222;
+  color: #fff;
+  line-height: 45px;
 }
 
 /********************
   TEAMC-9
 ********************/
 .timeline-card {
-  margin-left: 70px;
+  border-bottom: 1px solid #ccc;
+  box-shadow: none;
+  margin: 0;
+  margin: 10px 0;
+  padding-left: 50px;
 }
 .timeline-user-icon {
   background-color: #fff;
@@ -87,33 +142,44 @@ main, footer {
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
-  height: 56px;
+  height: 45px;
   position: absolute;
-  top: 0;
-  left: -70px;
-  width: 56px;
-}
-.timeline-title {
-  overflow: hidden;
-  white-space: nowrap;
+  top: 10px;
+  left: 0;
+  width: 45px;
+  box-shadow: none;
 }
 .timeline-user-name {
   font-weight: bold;
 }
 .timeline-user-id {
+  color: rgba(0, 0, 0, 0.7);
   font-weight: normal;
-  margin-left: 1rem;
-  opacity: .7;
   font-size: 12px;
+  line-height: 21px;
+  margin-bottom: 5px;
 }
 
 /********************
   TEAMC-5
 ********************/
+.sidenav li:first-child {
+  margin-bottom: 10px;
+}
+.sidenav li > a:hover, .sidenav li.select a {
+  background-color: rgba(0, 0, 0, .3);
+}
+.sidenav li > a {
+  color: #fff;
+}
 .sidenav li:first-child > a {
    height: auto;
-   padding-bottom: 48px;
-   padding-top: 48px;
+   padding-bottom: 10px;
+   padding-top: 40px;
+}
+.sidenav li > a > i {
+  margin: 0 .5rem 0 0 !important;
+  color: rgba(255, 255, 255, 1) !important;
 }
 .side-user-icon {
   background-color: #fff;
@@ -124,12 +190,20 @@ main, footer {
   margin: 0 auto;
   height: 96px;
   width: 96px;
+  box-shadow: none;
+}
+.side-user-name, .side-user-id {
+  color: #fff;
+  line-height: 21px;
+  text-align: center;
+  word-break: break-all;
 }
 .side-user-name {
   font-weight: bold;
-  line-height: 1.5;
-  padding: 13.5px 0;
-  text-align: center;
+  margin-top: 10px;
+}
+.side-user-id {
+  font-size: 12px;
 }
 
 /********************
@@ -186,8 +260,6 @@ div.wrapper {
   position: relative;
  }
  #signout{
-  width: 100%;
-   position: fixed;
-   bottom: 10vh;
+   margin-top: 10px;
  }
  

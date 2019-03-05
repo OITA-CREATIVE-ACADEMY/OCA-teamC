@@ -29,7 +29,6 @@
   <body>
   <!-- <div id="firebaseui-auth-container"></div> -->
     <header>
-      <!-- Sidenav -->
       <div class="container">
         <ul id="slide-out" class="sidenav sidenav-fixed">
           <div class="wrapper">
@@ -47,30 +46,38 @@
         <a href="#" data-target="slide-out" class="sidenav-trigger sidenav-btn hide-on-large-only"><i class="material-icons">menu</i></a>
       </div>
     </header>
+    <!-- Sidenav -->
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <div class="wrapper">
+        <li>
+          <a href="mypage/index.html">
+            <div class="side-user-icon z-depth-1" style="background-image: url(./img/dummy.jpg)"></div>
+            <div class="side-user-name"></div>
+            <div class="side-user-id"></div>
+          </a>
+        </li>
+        <li class="select"><a href="#!"><i class="material-icons">home</i>ホーム</a></li>
+        <li><a href="mypage/index.html"><i class="material-icons">person</i>ユーザー設定</a></li>
+        <li id="signout"><a onclick="logout()"><i class="material-icons">exit_to_app</i>ログアウト</a></li>
+      </div>
+    </ul>
     <main>
   <div class="container">
   <div id="messagesDiv" class="col s12"></div><!-- カードが入る--->
     <div id="cardDamy" style="display: none">
       <div class="card timeline-card text-item" data-key="">
-        <a href="#" class="timeline-user-icon z-depth-1"></a>
         <div class="card-body">
-          <div class="row">
-            <div class="col s10 m11">
-              <div class="timeline-title"><span class="timeline-user-name"></span><span class="timeline-user-id"></span></div>
-              <div class="textMain"></div>
-            </div>
-            <div class="col s2 m1 right">
-              <a href="#!"><p class="delete-text"><i class="delete-icon material-icons">block</i></p></a>
-            </div>
+          <a href="#" class="timeline-user-icon z-depth-1"></a>
+          <a class="timeline-delet-btn delete-text" href="#!" data-dismiss="modal"><i class="delete-icon material-icons">block</i></a>
+          <div class="timeline-user-name"></div>
+          <div class="timeline-user-id"></div>
+          <div class="textMain"></div>
+          <div class="original-btn">
+             <button class="original-btn1"></button>
+             <button class="original-btn2"></button>
+             <button class="original-btn3 like">どうでもいいね <span class="gooduser"></span></button>
           </div>
-          <div class="row original-btn">
-             <div class="right-align col s12 l9 offset-l3">
-               <button class="original-btn1 waves-effect waves-light btn-small"></button>
-               <button class="original-btn2 waves-effect waves-light btn-small"></button>
-               <button class="original-btn3 waves-effect waves-light btn-small like">どうでもいいね <span class="gooduser"></span></button>
-             </div>
-          </div>
-          <span class="now"></span>
+          <div class="timeline-date now"></div>
         </div>
       </div>
     </div>
@@ -128,8 +135,8 @@
       </div>
   </div>
     <div class="fixed-tweet-btn">
-      <a id="modal-btn" class="btn-tweet waves-effect waves-light btn-floating btn-large">
-        <i class="large material-icons modal-trigger" href="#modal1">mode_edit</i>
+      <a id="modal-btn" class="btn-tweet waves-effect waves-light btn-floating">
+        <i class="material-icons modal-trigger" href="#modal1">mode_edit</i>
       </a>
     </div>
   </div>
