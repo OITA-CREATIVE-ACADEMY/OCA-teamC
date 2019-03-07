@@ -74,10 +74,10 @@
                   <div class="input-field col s12">
                     <input value="email" id="email" type="email" class="validate">
                     <label class="active" for="email">Email</label>
-                    <span class="helper-text" data-error="wrong" data-success="right">Email address change</span>
-                    <p>新メールアドレス  <input type='text' id='mail2' /></p>
-                  <p>パスワード    <input type='password' id='pass1' /></p>
-
+                    
+                  <!-- hide -->
+ <!-- Modal Trigger -->
+ <a class="waves-effect waves-light btn savebtn" >Email address change</a>
                   </div>
                 </div>
                 <!-- <div class="row">
@@ -142,15 +142,18 @@
         <input type='button' id='mailChgExe' value=' 実行 ' /></p>
         ステータス： <nobr id='stat'></nobr>
 
-      
-
-
-
-
  </div>pass -->
+ <!-- Modal Structure -->
+ <div id="modal1" class="modal">
+  <div class="modal-content">
+    <p>パスワードを入力してください</p>
+    <p><input value="" type="password" id="pass_input"></p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="agree_btn">Agree</a>
+  </div>
 
-
-
+</div>
 
 
 

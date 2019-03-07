@@ -1,4 +1,7 @@
 $(function(){
+
+  $('.modal').modal();
+  
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {//ユーザーがログインしていれば実行
       var userName = user.displayName;
@@ -26,6 +29,15 @@ $(function(){
         $('.name').val(userName);//設定画面のユーザー名
         $('#email').val(email);//設定画面のemail
         $('.savebtn').click(function(){//プロフィールの保存
+          var email = $('#email').val();
+          if(email != user.email){
+              // メールアドレスが変わっている
+              var instance = M.Modal.getInstance($('.modal'));
+              instance.open();
+              return false;
+          }
+          console.log("通化 ---------------------");
+          
           var myName = $('.name').val();
           var radiobtn = $('input[name=group1]:checked').val();
           var textarea = $('#textarea1').val();
