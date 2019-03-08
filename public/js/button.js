@@ -53,14 +53,8 @@ $(function(){
 
         messagesRef.push({text:text,time:time,uid:uid,button1:addText1,button2:addText2});
         $('#messageInput').val('');
-        $('.character-counter').text('');
+        $('.modal-close').click();
       }
     });
-    $('.modal-close').click(function(){
-      $('#messageInput').val('');
-      $('.add-button').css("display","none");
-      $('.character-counter').text('');
-    });
-
   });
 });

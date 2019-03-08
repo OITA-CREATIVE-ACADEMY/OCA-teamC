@@ -15,6 +15,7 @@ $(function(){
           userdata(user,icon);
         });
         console.log(user);
+        $('.modal').modal();//モーダルを使う為の記述
         $('.sidenav').sidenav();
         $('#text1,#textarea1,.name').characterCounter();
         $('.side-user-name').text(userName);//サイドバーのユーザー名
@@ -22,44 +23,49 @@ $(function(){
         $('#email').val(email);//設定画面のemail
         $('.side-user-id').text('@' + uid);//サイドバーのIDの表示
         $('.savebtn').click(function(){//プロフィールの保存
-          var myName = $('.name').val();
-          if (myName.length <= 12 && myName) {
-            var radiobtn = $('input[name=group1]:checked').val();
-            var textarea = $('#textarea1').val();
-            user.updateProfile({
-              displayName: myName,
-              }).then(function() {
-                // Update successful.
-                firebase.database().ref('users/' + uid).update({
-                  username: myName,
-                  email: email,
-                  sex: radiobtn,
-                  text: textarea,
+          if ($('#email').val() === email) {
+            $('.savebtn').removeClass('modal-trigger');
+            var myName = $('.name').val();
+            if (myName.length <= 12 && myName) {
+              var radiobtn = $('input[name=group1]:checked').val();
+              var textarea = $('#textarea1').val();
+              user.updateProfile({
+                displayName: myName,
                 }).then(function() {
-                  if ($("#upfile")[0].files[0]) {
-                    var image = $("#upfile")[0].files[0];
-                    var fileName = image.name;//file名
-                    console.log(image);
-                    var upImageRef = firebase.storage().ref(`/userIcon/${uid}`).child(fileName);
-                    upImageRef.put(image).then(function(snapshot) {
-                      console.log('Uploaded a blob or file!');
-                      firebase.database().ref(`/users/${uid}`).update({iconImage:fileName}).then(function() {
-                        window.localStorage.setItem('selectedUsers', myName);
-                        location.reload();
-                      });//ユーザにアイコン名を保存
-                    });
-                  } else {
-                    location.reload();
-                  }
-                });
-              }).catch(function(error) {
-                // An error happened.
-                console.log(error);
-                alert('エラーが発生しました');
-            });
+                  // Update successful.
+                  firebase.database().ref('users/' + uid).update({
+                    username: myName,
+                    email: email,
+                    sex: radiobtn,
+                    text: textarea,
+                  }).then(function() {
+                    if ($("#upfile")[0].files[0]) {
+                      var image = $("#upfile")[0].files[0];
+                      var fileName = image.name;//file名
+                      console.log(image);
+                      var upImageRef = firebase.storage().ref(`/userIcon/${uid}`).child(fileName);
+                      upImageRef.put(image).then(function(snapshot) {
+                        console.log('Uploaded a blob or file!');
+                        firebase.database().ref(`/users/${uid}`).update({iconImage:fileName}).then(function() {
+                          window.localStorage.setItem('selectedUsers', myName);
+                          location.reload();
+                        });//ユーザにアイコン名を保存
+                      });
+                    } else {
+                      location.reload();
+                    }
+                  });
+                }).catch(function(error) {
+                  // An error happened.
+                  console.log(error);
+                  alert('エラーが発生しました');
+              });
+            }
+          } else {
+            $('.savebtn').addClass('modal-trigger');
+            $('.modal-trigger').click();//応急措置、書き方汚い
           }
         });
-
         /*
          *アイコン画面の変更
          */
