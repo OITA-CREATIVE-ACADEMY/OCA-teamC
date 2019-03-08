@@ -64,7 +64,7 @@
             <!-- 他人の名前 -->
             <div class="row otherName hide">
               <div class="input-field col s12">
-                <input disabled value="name" type="text" id="otherName" class="validate name">
+                <input disabled value="name" type="text" id="otherName" class="validate name" data-length="12">
                 <label class="active" for="otherName">Name</label>
               </div>
             </div>
@@ -112,6 +112,11 @@
               </div>
             </div>
             <div class="row">
+              <div class="col s12">
+                <p id="errorMessage" style="color:red;"></p>
+              </div>
+            </div>
+            <div class="row">
               <div class="input-field col s12 textMain">
                 <p id="textarea2"></p>
               </div>
@@ -126,11 +131,47 @@
           </form>
         </div>
       </div>
+
+      <!-- 変更ページ -->
+      <!-- <div class="pass">
+
+      <h2>メールアドレス変更</h2>
+      <p>新メールアドレス  <input type='text' id='mail2' /></p>
+      <p>パスワード    <input type='password' id='pass1' />
+        <input type='button' id='mailChgExe' value=' 実行 ' /></p>
+        ステータス： <nobr id='stat'></nobr>
+
+ </div>pass -->
+ <!-- Modal Structure -->
+ <div id="modal1" class="modal">
+  <div class="modal-content">
+    <div class="row center-align">
+      <div class="col s12">
+        <p>メールアドレスの変更にはパスワードが必要です。<br>
+          パスワードを入力してください</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="pass_input" type="password" class="validate">
+        <label class="active" for="password">Password</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn modal-close waves-effect waves-green btn-flat" id="agree_btn">保存する</button>
+  </div>
+</div>
+
+
+
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="../lib/materialize/js/materialize.min.js"></script>
     <script src="../lib/moment.min.js"></script>
     <script src="../js/mypage.js"></script>
+    <script src="../js/email_update.js"></script>
+
     <!-- <script>
         // ファイル選択フォームに変更時に、フォームの値をコンソールログに表示する
         $("#upfile").change(function(){
@@ -140,6 +181,10 @@
         imagesRef.put(val).then(function(snapshot) {
         console.log('Uploaded a blob or file!');
 });
+
     </script> -->
+    <!-- メールアドレスとパスワードの変更 -->
+
+
   </body>
 </html>
