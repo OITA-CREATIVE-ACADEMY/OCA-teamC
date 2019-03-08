@@ -63,7 +63,6 @@ $(function(){
             }
           } else {
             $('.savebtn').addClass('modal-trigger');
-            $('.modal-trigger').click();//応急措置、書き方汚い
           }
         });
         /*

@@ -11,6 +11,7 @@ $(function(){
                   // サインイン済み
                   console.log("ログインしている");
                   // パスとメールアドレスの取得
+                  var uid = user.uid;
                   var pass_input = $('#pass_input').val();
                   var email = $('#email').val();
                   //あとで使う
@@ -27,7 +28,7 @@ $(function(){
                         displayName: myName,
                         }).then(function() {
                           // Update successful.
-                          firebase.database().ref('users/' + user.uid).update({
+                          firebase.database().ref('users/' + uid).update({
                             username: myName,
                             email: email,
                             sex: radiobtn,
