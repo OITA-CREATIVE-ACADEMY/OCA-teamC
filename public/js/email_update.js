@@ -4,10 +4,10 @@ $(function(){
         // ログインしているユーザを取得する
         firebase.auth().onAuthStateChanged(function(user) {
             if (!user) {
-                location.href = 'index3.html';
+                location.href = 'index3.html';//ユーザーがいなければログイン画面に遷移
             } else {
               var myName = $('.name').val();
-              if (myName.length <= 12 && myName) {
+              if (myName.length <= 12 && myName) {//名前が入力されて居てかつ12文字以下の時
                   // サインイン済み
                   console.log("ログインしている");
                   // パスとメールアドレスの取得
@@ -21,6 +21,7 @@ $(function(){
                       // メールの更新
                       userCredential.user.updateEmail(email);
                       // それ以外の更新
+                      var uid = user.uid;
                       var radiobtn = $('input[name=group1]:checked').val();
                       var textarea = $('#textarea1').val();
                       console.log(user);

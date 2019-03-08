@@ -4,15 +4,14 @@ $(function(){
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {//ユーザーがログインしていれば実行
       console.log(user);
-      var userName = user.displayName;
-      var uid = user.uid;
-      var email = user.email;
+      var userName = user.displayName;//自分の名前
+      var uid = user.uid;//自分のID
+      var email = user.email;//自分のメールアドレス
       $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
       $('.side-user-id').text('@' + uid);//サイドバーのIDの表示
       firebase.database().ref('users/' + uid).once('value', function (snapshot) {//ユーザー情報の判定
-        var count = snapshot.numChildren();
-        var icon  = snapshot.val().iconImage;
-          sideIcon(user,icon,uid);
+        var icon  = snapshot.val().iconImage;//アイコンのurlを取得
+          sideIcon(user,icon,uid);//サイドバーに自分のアイコンを表示
         });
         $('.modal').modal();//モーダルを使う為の記述
         $('.sidenav').sidenav();//サイドバーを使う為の記述
@@ -30,24 +29,23 @@ $(function(){
           $('#btn-list').hide();
         });
 
-        $('#modal-switch').click(function(){
+        $('#modal-switch').click(function(){//ボタン追加画面に変更
           $('#modalMain').hide();
           $('#btn-list').show();
         });
 
         $('.userSetting').click(function() {//ユーザー設定に飛ぶときの処理
-          window.localStorage.setItem('selectedUid', user.uid);
-          window.location.href = "mypage/index.html";
+          window.localStorage.setItem('selectedUid', user.uid);//ローカルストレージにユーザーの情報を保存
+          window.location.href = "mypage/index.html";//画面遷移
         });
 
         $('.timeline-user-icon').click(function() {//アイコンを押したらアイコンの人のプロフィールを表示
-          var itemKey = $(this).parents(".timeline-card").data('uid');
+          var itemKey = $(this).parents(".timeline-card").data('uid');//コメントした人のIDを取得
           var otherUsers = firebase.database().ref('/users/' + itemKey);
-          otherUsers.once('value').then(function(snapshot){
-            var Name  = snapshot.val().username;
-            // window.localStorage.setItem('selectedUsers', Name);//ローカルストレージに一時的に保存
-            window.localStorage.setItem('selectedUid', itemKey);
-            window.location.href = "mypage/index.html";
+          otherUsers.once('value').then(function(snapshot){//IDを元にfirebaseから検索
+            var Name  = snapshot.val().username;//ユーザー名を取得
+            window.localStorage.setItem('selectedUid', itemKey);//ローカルストレージにユーザーの情報を保存
+            window.location.href = "mypage/index.html";//画面遷移
           });
         });
 
@@ -79,23 +77,23 @@ $(function(){
           }
         });
 
-        $('.edit-text').on('click',function() {//編集処理（未実装）
-          const itemKey = $(this).data('key');
-          $('.edit-btn').show();
-          $('.comment').hide();
-          $('#modalMain').show();
-          $('#btn-list').hide();
-          $('.edit-btn').click(function(){
-            var text = $('#messageInput').val();
-            var time = moment().format('YYYY-MM-DD HH:mm');
-            writeNewPost(text,itemKey,time);
-            $('#messageInput').val('');
-          });
-        });
+        // $('.edit-text').on('click',function() {//編集処理（未実装）
+        //   const itemKey = $(this).data('key');
+        //   $('.edit-btn').show();
+        //   $('.comment').hide();
+        //   $('#modalMain').show();
+        //   $('#btn-list').hide();
+        //   $('.edit-btn').click(function(){
+        //     var text = $('#messageInput').val();
+        //     var time = moment().format('YYYY-MM-DD HH:mm');
+        //     writeNewPost(text,itemKey,time);
+        //     $('#messageInput').val('');
+        //   });
+        // });
 
         $('.delete-text').click(function(){//カードの削除とブロック
-          if ($(this).children().text() == 'block') {//自分のコメントかどうかの判定
-            if (confirm("ブロックしても宜しいですか？")) {
+          if ($(this).children().text() == 'block') {//他人のコメントならば
+            if (confirm("ブロックしても宜しいですか？")) {//ブロックの確認
               const block = $(this).parents(".timeline-card").data('key');
               $(this).parents(".timeline-card").addClass('hide');
               firebase.database().ref(`users/${user.uid}` + '/blocklist').push({
@@ -103,7 +101,7 @@ $(function(){
               });
             }
           } else {//自分のコメントならば
-            if (confirm("削除しても宜しいですか？")) {
+            if (confirm("削除しても宜しいですか？")) {//削除の確認
               var card = $(this).parents(".timeline-card");
                 const itemKey = $(card).data('key');
                 messagesRef.child(itemKey).remove();
@@ -113,12 +111,12 @@ $(function(){
         /*表示*/
         messagesRef.orderByChild('time').on('child_added', function (snapshot) {//メッセージを追加（リアルタイム）
             var message    = snapshot.val();
-            var messageKey = snapshot.key;
-            var formatDate = message.time;
-            var button1 = message.button1;
-            var button2 = message.button2;
-            const uid = message.uid;
-            var taskcopy = createcard(message,messageKey,formatDate,user,uid,button1,button2);
+            var messageKey = snapshot.key;//コメント自体のキー
+            var formatDate = message.time;//投稿された時間
+            var button1 = message.button1;//一つ目のボタンの情報
+            var button2 = message.button2;//二つ目のボタンの情報
+            const uid = message.uid;//コメントしたユーザーのID
+            var taskcopy = createcard(message,messageKey,formatDate,user,uid,button1,button2);//カードの追加処理
             taskcopy.prependTo($('#messagesDiv'));
         });
         messagesRef.on('child_removed', function (snapshot) {//メッセージを削除（リアルタイム）
@@ -131,11 +129,11 @@ $(function(){
         });
 
       }else{//ログインしているユーザーが居なければ
-        location.href = 'index3.html';
+        location.href = 'index3.html';//ログイン画面に飛ばす
       }
     });
 });
-//ユーザの名前をusersに保存する
+//ユーザの情報をusersに保存する
 function writeUserData(userId, name, email, sex, iconImage) {
   firebase.database().ref('users/' + userId).set({
     username: name,
@@ -170,20 +168,20 @@ function writeButtonData(itemKey,user) {//どうでも良いねボタンを押�
     good: user.displayName,
   });
 }
-function writeNewPost(text,itemKey,time) {//編集処理（未実装）
-  // A post entry.
-  var postData = {
-    text: text,
-    time: time,
-  };
-  var updates = {};
-  updates[itemKey] = postData;
-  // updates['/user-posts/' + itemKey] = postData;
-  return messagesRef.update(updates);
-}
+// function writeNewPost(text,itemKey,time) {//編集処理（未実装）
+//   // A post entry.
+//   var postData = {
+//     text: text,
+//     time: time,
+//   };
+//   var updates = {};
+//   updates[itemKey] = postData;
+//   // updates['/user-posts/' + itemKey] = postData;
+//   return messagesRef.update(updates);
+// }
 function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//カードを作成
   var cloneTask = $('#cardDamy').find('div.timeline-card').clone(true);
-  console.log(cloneTask);
+  // console.log(cloneTask);
   cloneTask.attr('data-key',messageKey);
   cloneTask.attr('data-uid',uid);
   cloneTask.find('.original-btn1').prepend(`${button1}<span class="but1-gooduser"></span>`);//カウントの為Spanタグを追加
@@ -204,28 +202,27 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
      cloneTask.find('.delete-icon').text('delete');//コメントが自分のものであればクラスを追加
    }
    firebase.database().ref(`users/${user.uid}` + '/blocklist').once('value', function(snapshot) {
-     snapshot.forEach(function(childSnapshot) {
+     snapshot.forEach(function(childSnapshot) {//ブロックリストの数だけループ
        var childKey = childSnapshot.val().block;
        if (messageKey === childKey) {
          cloneTask.attr('class','hide');
        }
      });
    });
-  var message1 = message.text.replace(/\r?\n/g, '<br>');
-  cloneTask.find('.textMain').html(message1);
+  var message1 = message.text.replace(/\r?\n/g, '<br>');//改行可能にする処理
+  cloneTask.find('.textMain').html(message1);//メッセージを追加
   cloneTask.find('.timeline-user-id').text('@' + uid);//IDの表示
   /* コメントにアイコンと名前を表示する*/
   firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot) {
     var displayName = snapshot.val().username;//ユーザー名
     var flug = snapshot.val().iconImage;//ユーザーのアイコン情報
     cloneTask.find('.timeline-user-name').text(displayName);//名前の表示
-    if(flug !== '画像なし'){
+    if(flug !== '画像なし'){//画像が設定してあればダウンロードして表示
       firebase.storage().ref(`/userIcon/${uid}/${flug}`).getDownloadURL().then((url) => {
         cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
       });
-    }else{
+    }else{// 初期アイコンを全てにコメントに表示
       var imagesRef = firebase.storage().ref('dummy.jpg');
-      // 初期アイコンを全てにコメントに表示
       imagesRef.getDownloadURL().then((url) => {
       cloneTask.find('.timeline-user-icon').css('background-image','url(' + url + ')');
       });
@@ -233,9 +230,9 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
   });
 
   firebase.database().ref('/tasks/' + messageKey + '/users').on('value', function (snapshot) {//ボタン
-    var likecount    = snapshot.numChildren();//どうでも良いねが押された数
-    var opacitycount = 1.0 - likecount / 7;//opacityを0.1ずつ変更
-    cloneTask.find('.gooduser').text(likecount);
+    var likecount    = snapshot.numChildren();//どうでも良いねが押された数を取得
+    var opacitycount = 1.0 - likecount / 7;//opacityを変更（現在は1/7ずつ）
+    cloneTask.find('.gooduser').text(likecount);//どうでも良いねが押された数を表示
     cloneTask.find('.card-body').css({
         opacity: opacitycount,
     });
@@ -253,10 +250,10 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
   });
 // =================================================================================
 firebase.database().ref('/tasks/' + messageKey + '/button1-user').on('value', function (snapshot) {//ボタン
-  var likecount    = snapshot.numChildren();//どうでも良いねが押された数
+  var likecount    = snapshot.numChildren();//ボタンが押された数
   cloneTask.find('.but1-gooduser').text(likecount);
 /**
- * どうでもいいねボタンのON・Off判定
+ * ボタンのON・Off判定
  */
 firebase.database().ref('/tasks/' + messageKey + '/button1-user/' + user.uid).once('value', function (snapshot) {//ボタン
     var likeuser = snapshot.numChildren();
@@ -272,7 +269,7 @@ firebase.database().ref('/tasks/' + messageKey + '/button2-user').on('value', fu
   var likecount    = snapshot.numChildren();//どうでも良いねが押された数
   cloneTask.find('.but2-gooduser').text(likecount);
 /**
- * どうでもいいねボタンのON・Off判定
+ * ボタンのON・Off判定
  */
 firebase.database().ref('/tasks/' + messageKey + '/button2-user/' + user.uid).once('value', function (snapshot) {//ボタン
     var likeuser = snapshot.numChildren();
@@ -304,6 +301,3 @@ function logout(){
       alert("キャンセルしました");
     }
 }
-
-// メールアドレスとパスワードの変更
-
