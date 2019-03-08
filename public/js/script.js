@@ -7,6 +7,8 @@ $(function(){
       var userName = user.displayName;
       var uid = user.uid;
       var email = user.email;
+      $('.side-user-name').text(user.displayName);//サイドバーのユーザー名
+      $('.side-user-id').text('@' + uid);//サイドバーのIDの表示
       firebase.database().ref('users/' + uid).once('value', function (snapshot) {//ユーザー情報の判定
         var count = snapshot.numChildren();
         var icon  = snapshot.val().iconImage;
@@ -211,7 +213,7 @@ function createcard(message,messageKey,formatDate,user,uid,button1,button2) {//�
    });
   var message1 = message.text.replace(/\r?\n/g, '<br>');
   cloneTask.find('.textMain').html(message1);
-  cloneTask.find('.timeline-user-id').text('id:' + uid);//IDの表示
+  cloneTask.find('.timeline-user-id').text('@' + uid);//IDの表示
   /* コメントにアイコンと名前を表示する*/
   firebase.database().ref(`/users/${uid}`).once('value').then(function(snapshot) {
     var displayName = snapshot.val().username;//ユーザー名
