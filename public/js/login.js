@@ -74,7 +74,10 @@ function message(error) {
       $('#errorMessage').text('既に使用されているメールアドレスです');
       break;
     case 'nameError':
-    $('#errorMessage').text('その名前は設定出来ません');
+      $('#errorMessage').text('その名前は設定出来ません');
+      break;
+    default:
+      $('#errorMessage').text('予期せぬエラーが発生しました');
       break;
   }
 }

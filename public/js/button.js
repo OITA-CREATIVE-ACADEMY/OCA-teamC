@@ -19,14 +19,14 @@ $(function(){
           console.log(l.eq(index));
           switch ($('.decide-button').length) {
             case 1:
-            l.show();
-            l.eq(1).hide();
+              l.show();
+              l.eq(1).hide();
             break;
             case 2:
-            l.show();
+              l.show();
             break;
             default:
-            l.hide();
+              l.hide();
             break;
           }
       });
