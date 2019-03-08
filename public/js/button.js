@@ -17,21 +17,21 @@ $(function(){
           var addText = $('.decide-button').eq(index).text();
           l.eq(index).text(addText);
           console.log(l.eq(index));
-          switch ($('.decide-button').length) {
-            case 1:
+          switch ($('.decide-button').length) {//押されたボタンの数によって動作を変更
+            case 1://ボタンが一つ追加されていれば
               l.show();
               l.eq(1).hide();
             break;
-            case 2:
+            case 2://ボタンが二つとも追加されていれば
               l.show();
             break;
-            default:
+            default://ボタンが増えて居なければ
               l.hide();
             break;
           }
       });
     });
-    $('.button-color').on('click', function() {
+    $('.button-color').on('click', function() {//追加したいボタンを押した時の処理
       if($(this).hasClass('decide-button')){
         $(this).css('background-color','#ffffff');
         $(this).removeClass('decide-button');
