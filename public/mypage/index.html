@@ -46,85 +46,81 @@
       <div class="container">
         <div class="row">
           <form class="col s12">
-            <div class="card">
-              <div class="card-content">
-                <div class="row">
-                  <div class="mypage-file-field file-field input-field col s12">
-                    <div id="file-preview" class="mypage-user-icon z-depth-1">
-                      <p><input type="file" accept="image/*" name="upfile" id="upfile" /></p>
-                    </div>
-                  </div>
+            <div class="row">
+              <div class="mypage-file-field file-field input-field col s12">
+                <div id="file-preview" class="mypage-user-icon z-depth-1">
+                  <p><input type="file" accept="image/*" name="upfile" id="upfile" /></p>
                 </div>
-                <!-- 自分の名前 -->
-                <div class="row myName">
-                  <div class="input-field col s12">
-                    <input value="name" id="name" type="text" data-length="12" class="validate name">
-                    <label class="active main-user-name" for="name">Name</label>
-                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                  </div>
-                </div>
-                <!-- 他人の名前 -->
-                <div class="row otherName hide">
-                  <div class="input-field col s12">
-                    <input disabled value="name" type="text" id="otherName" class="validate name">
-                    <label class="active" for="otherName">Name</label>
-                  </div>
-                </div>
-                <!-- 自分のメールアドレス -->
-                <div class="row userEmail hide">
-                  <div class="input-field col s12">
-                    <input value="email" id="email" type="email" class="validate">
-                    <label class="active" for="email">Email</label>
-                    <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
-                  </div>
-                </div>
-                <!-- <div class="row">
-                  <div class="input-field col s12">
-                    <input value="1234567890" id="password" type="password" class="validate">
-                    <label class="active" for="password">Password</label>
-                  </div>
-                </div> -->
-                <div class="row">
-                  <div class="input-field col s12 radiobtn-sex">
-                    <span class="input-type-radio">
-                      <label>
-                        <input id="male" class="with-gap" name="group1" value="male" type="radio" />
-                        <span>男性</span>
-                      </label>
-                    </span>
-                    <span class="input-type-radio">
-                      <label>
-                        <input id="woman" class="with-gap" name="group1" value="woman" type="radio" />
-                        <span>女性</span>
-                      </label>
-                    </span>
-                    <span class="input-type-radio">
-                      <label>
-                        <input id="other" class="with-gap" name="group1" value="other" type="radio" />
-                        <span>その他</span>
-                      </label>
-                    </span>
-                    <label class="active" for="">Sex</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12">
-                    <textarea id="textarea1" class="materialize-textarea" placeholder="自己紹介文" data-length="250"></textarea>
-                    <label class="active" for="textarea1">Textarea</label>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s12 textMain">
-                    <p id="textarea2"></p>
-                  </div>
-                </div>
-                <div class="row center-align">
-                  <div class="col s12">
-                    <button class="btn waves-effect waves-light btn-large savebtn" type="button" name="action">保存する
-                      <i class="material-icons right">send</i>
-                    </button>
-                  </div>
-                </div>
+              </div>
+            </div>
+            <!-- 自分の名前 -->
+            <div class="row myName">
+              <div class="input-field col s12">
+                <input value="name" id="name" type="text" data-length="12" class="validate name">
+                <label class="active main-user-name" for="name">Name</label>
+                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+              </div>
+            </div>
+            <!-- 他人の名前 -->
+            <div class="row otherName hide">
+              <div class="input-field col s12">
+                <input disabled value="name" type="text" id="otherName" class="validate name">
+                <label class="active" for="otherName">Name</label>
+              </div>
+            </div>
+            <!-- 自分のメールアドレス -->
+            <div class="row userEmail hide">
+              <div class="input-field col s12">
+                <input value="email" id="email" type="email" class="validate">
+                <label class="active" for="email">Email</label>
+                <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="input-field col s12">
+                <input value="1234567890" id="password" type="password" class="validate">
+                <label class="active" for="password">Password</label>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="input-field col s12 radiobtn-sex">
+                <span class="input-type-radio">
+                  <label>
+                    <input id="male" class="with-gap" name="group1" value="male" type="radio" />
+                    <span>男性</span>
+                  </label>
+                </span>
+                <span class="input-type-radio">
+                  <label>
+                    <input id="woman" class="with-gap" name="group1" value="woman" type="radio" />
+                    <span>女性</span>
+                  </label>
+                </span>
+                <span class="input-type-radio">
+                  <label>
+                    <input id="other" class="with-gap" name="group1" value="other" type="radio" />
+                    <span>その他</span>
+                  </label>
+                </span>
+                <label class="active" for="">Sex</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea" placeholder="自己紹介文" data-length="250"></textarea>
+                <label class="active" for="textarea1">Textarea</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 textMain">
+                <p id="textarea2"></p>
+              </div>
+            </div>
+            <div class="row center-align">
+              <div class="col s12">
+                <button class="btn waves-effect waves-light btn-large savebtn" type="button" name="action">保存する
+                  <i class="material-icons right">send</i>
+                </button>
               </div>
             </div>
           </form>
